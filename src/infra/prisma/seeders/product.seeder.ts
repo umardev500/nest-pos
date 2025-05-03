@@ -1,87 +1,112 @@
 import { PrismaClient } from 'prisma/generated/prisma';
+import {
+  CreateProductDTO,
+  ProductUnitDTO,
+  ProductVariantDTO,
+} from 'src/app/dto';
+import { unitData } from 'src/infra/prisma/seeders/unit.seeder';
+import { variantData } from 'src/infra/prisma/seeders/variant.seeder';
 
 const prisma = new PrismaClient();
 
-export default async function seedProduct() {
-  // Create units
-  const [pieceUnit, boxUnit] = await prisma.$transaction([
-    prisma.unit.create({ data: { name: 'Piece' } }),
-    prisma.unit.create({ data: { name: 'Box' } }),
-  ]);
-
-  // Create Variant Types and Values
-  const flavorType = await prisma.variantType.create({
+async function createProductWithUnitsAndVariants(dto: CreateProductDTO) {
+  await prisma.product.create({
     data: {
-      name: 'Flavor',
-      VariantValue: {
-        create: [{ value: 'Beef' }, { value: 'Chicken' }],
-      },
-    },
-    include: { VariantValue: true },
-  });
-
-  const sizeType = await prisma.variantType.create({
-    data: {
-      name: 'Size',
-      VariantValue: {
-        create: [{ value: 'Small' }, { value: 'Large' }],
-      },
-    },
-    include: { VariantValue: true },
-  });
-
-  // Create product
-  const product = await prisma.product.create({
-    data: {
-      name: 'Cheese Burger',
-      base_unit_id: pieceUnit.id,
+      name: dto.name,
+      base_unit_id: dto.base_unit_id,
       ProductUnit: {
-        create: [
-          {
-            unit_id: pieceUnit.id,
-            stock: 100,
-            price: 10.0,
-            conversion_factor: 1,
-          },
-          {
-            unit_id: boxUnit.id,
-            stock: 10,
-            price: 100.0,
-            conversion_factor: 10,
-          },
-        ],
+        create: dto.product_units.map((unit: ProductUnitDTO) => ({
+          unit_id: unit.unit_id,
+          stock: unit.stock,
+          price: unit.price,
+          conversion_factor: unit.conversion_factor,
+        })),
       },
       ProductVariant: {
-        create: [
-          {
-            unit_id: pieceUnit.id,
-            variant_value_id: flavorType.VariantValue[0].id, // Beef
-            stock: 100,
-            price: 5.5,
-          },
-          {
-            unit_id: pieceUnit.id,
-            variant_value_id: flavorType.VariantValue[1].id, // Chicken
-            stock: 100,
-            price: 5.2,
-          },
-          {
-            unit_id: boxUnit.id,
-            variant_value_id: sizeType.VariantValue[0].id, // Small
-            stock: 20,
-            price: 44.0,
-          },
-          {
-            unit_id: boxUnit.id,
-            variant_value_id: sizeType.VariantValue[1].id, // Large
-            stock: 20,
-            price: 46.0,
-          },
-        ],
+        create: dto.product_variants.map((variant: ProductVariantDTO) => ({
+          unit_id: variant.unit_id,
+          variant_value_id: variant.variant_value_id,
+          stock: variant.stock,
+          price: variant.price,
+        })),
       },
     },
-    include: { ProductUnit: true, ProductVariant: true },
+    include: {
+      ProductUnit: true,
+      ProductVariant: true,
+    },
   });
+}
 
-  console.log(product);
+function buildCheeseBurgerDTO(): CreateProductDTO {
+  const pieceUnit = unitData.find((u) => u.name === 'Piece')!;
+  const boxUnit = unitData.find((u) => u.name === 'Box')!;
+
+  const beef = variantData
+    .find((v) => v.name === 'Flavor')!
+    .values.find((v) => v.value === 'Beef')!;
+
+  const chicken = variantData
+    .find((v) => v.name === 'Flavor')!
+    .values.find((v) => v.value === 'Chicken')!;
+
+  const small = variantData
+    .find((v) => v.name === 'Size')!
+    .values.find((v) => v.value === 'Small')!;
+
+  const large = variantData
+    .find((v) => v.name === 'Size')!
+    .values.find((v) => v.value === 'Large')!;
+
+  return {
+    name: 'Cheese Burger',
+    base_unit_id: pieceUnit.id,
+    product_units: [
+      {
+        unit_id: pieceUnit.id,
+        stock: 100,
+        price: 5.0,
+        conversion_factor: 1,
+      },
+      {
+        unit_id: boxUnit.id,
+        stock: 20,
+        price: 45.0,
+        conversion_factor: 10,
+      },
+    ],
+    product_variants: [
+      {
+        unit_id: pieceUnit.id,
+        variant_value_id: beef.id,
+        stock: 50,
+        price: 5.5,
+      },
+      {
+        unit_id: pieceUnit.id,
+        variant_value_id: chicken.id,
+        stock: 50,
+        price: 5.2,
+      },
+      {
+        unit_id: boxUnit.id,
+        variant_value_id: small.id,
+        stock: 10,
+        price: 48.0,
+      },
+      {
+        unit_id: boxUnit.id,
+        variant_value_id: large.id,
+        stock: 10,
+        price: 50.0,
+      },
+    ],
+  };
+}
+
+export default async function seedProduct() {
+  console.log('seeding product...');
+
+  // Call the function
+  await createProductWithUnitsAndVariants(buildCheeseBurgerDTO());
 }

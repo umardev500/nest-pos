@@ -12,11 +12,15 @@ create-db:
 
 reset-db: drop-db create-db
 
+# Migration
+migrate:
+	@yarn migrate
+
 # Seeder
 seed:
 	@bun src/infra/prisma/seeders/index.ts
 
-clear-all:
+clear-all: reset-db
 	@rm -rf prisma/generated
 	@rm -rf prisma/migrations
 	@rm -rf dist
