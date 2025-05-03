@@ -1,5 +1,12 @@
-import { Controller, Get, Query, UseInterceptors } from '@nestjs/common';
-import { ProductFilterDTO } from 'src/app/dto';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
+import { CreateProductDTO, ProductFilterDTO } from 'src/app/dto';
 import { ProductService } from 'src/app/service';
 import { UserContextInterceptor } from 'src/interceptor';
 
@@ -11,5 +18,11 @@ export class ProductController {
   @Get()
   find(@Query() filter: ProductFilterDTO) {
     return this.productService.find(filter);
+  }
+
+  // POST request to create a new product
+  @Post()
+  create(@Body() dto: CreateProductDTO) {
+    return dto;
   }
 }

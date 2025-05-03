@@ -6,3 +6,54 @@ GET {{API_URL}}/products
 # Query Parameters:
 # - search (optional): Filter products by name, unit, or variant. Case-insensitive.
 #   Example: ?search=shirt
+
+
+### Create product
+
+POST {{API_URL}}/products
+Content-Type: application/json
+
+{
+  "name": "Cheese Burger",
+  "base_unit_id": 1,
+  "product_units": [
+    {
+      "unit_id": 1,
+      "stock": 100,
+      "price": 5.0,
+      "conversion_factor": 1
+    },
+    {
+      "unit_id": 2,
+      "stock": 20,
+      "price": 45.0,
+      "conversion_factor": 10
+    }
+  ],
+  "product_variants": [
+    {
+      "unit_id": 1,
+      "variant_value_id": 1,
+      "stock": 50,
+      "price": 5.5
+    },
+    {
+      "unit_id": 1,
+      "variant_value_id": 2,
+      "stock": 50,
+      "price": 5.2
+    },
+    {
+      "unit_id": 2,
+      "variant_value_id": 3,
+      "stock": 10,
+      "price": 48.0
+    },
+    {
+      "unit_id": 2,
+      "variant_value_id": 4,
+      "stock": 10,
+      "price": 50.0
+    }
+  ]
+}
