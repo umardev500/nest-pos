@@ -23,6 +23,6 @@ export class ProductController {
   // POST request to create a new product
   @Post()
   create(@Body() dto: CreateProductDTO) {
-    return dto;
+    return this.productService.create(dto);
   }
 }

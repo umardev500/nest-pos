@@ -14,7 +14,7 @@ POST {{API_URL}}/products
 Content-Type: application/json
 
 {
-  "name": "Cheese Burger",
+  "name": "Cheese Burger 2",
   "base_unit_id": 1,
   "product_units": [
     {
