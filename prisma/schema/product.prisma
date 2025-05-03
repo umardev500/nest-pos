@@ -6,9 +6,9 @@ model Product {
     updated_at   DateTime @updatedAt
 
     // Relationships
-    base_unit      Unit             @relation(fields: [base_unit_id], references: [id])
-    ProductUnit    ProductUnit[]
-    ProductVariant ProductVariant[]
+    base_unit       Unit             @relation(fields: [base_unit_id], references: [id])
+    product_unit    ProductUnit[]
+    product_variant ProductVariant[]
 }
 
 model Unit {
@@ -16,9 +16,9 @@ model Unit {
     name String
 
     // Relationships
-    Product        Product[]
-    ProductUnit    ProductUnit[]
-    ProductVariant ProductVariant[]
+    Product         Product[]
+    product_unit    ProductUnit[]
+    product_variant ProductVariant[]
 }
 
 model ProductUnit {
@@ -42,7 +42,7 @@ model VariantType {
     name String
 
     // Relationships
-    VariantValue VariantValue[]
+    variant_value VariantValue[]
 }
 
 model VariantValue {
@@ -51,8 +51,8 @@ model VariantValue {
     value           String
 
     // Relationships
-    variant_type   VariantType      @relation(fields: [variant_type_id], references: [id])
-    ProductVariant ProductVariant[]
+    variant_type    VariantType      @relation(fields: [variant_type_id], references: [id])
+    product_variant ProductVariant[]
 }
 
 // Variant table connects Product with VariantValue and contains price, stock

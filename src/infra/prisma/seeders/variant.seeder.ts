@@ -27,9 +27,9 @@ export default async function seedVariant() {
       prisma.variantType.create({
         data: {
           name: variant.name,
-          VariantValue: { create: variant.values },
+          variant_value: { create: variant.values },
         },
-        include: { VariantValue: true },
+        include: { variant_value: true },
       }),
     ),
   );
