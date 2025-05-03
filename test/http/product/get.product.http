@@ -1,2 +1,8 @@
-### Get products
+### Get Products
+# Retrieve a list of products. Optionally, filter by a search term.
+
 GET {{API_URL}}/products
+
+# Query Parameters:
+# - search (optional): Filter products by name, unit, or variant. Case-insensitive.
+#   Example: ?search=shirt

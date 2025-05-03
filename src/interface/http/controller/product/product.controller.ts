@@ -1,4 +1,5 @@
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Query, UseInterceptors } from '@nestjs/common';
+import { ProductFilterDTO } from 'src/app/dto';
 import { ProductService } from 'src/app/service';
 import { UserContextInterceptor } from 'src/interceptor';
 
@@ -8,7 +9,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  find() {
-    return this.productService.find();
+  find(@Query() filter: ProductFilterDTO) {
+    return this.productService.find(filter);
   }
 }
