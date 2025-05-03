@@ -14,10 +14,12 @@ model Product {
 }
 
 model Unit {
-    id   Int    @id @default(autoincrement())
-    name String
+    id          Int    @id @default(autoincrement())
+    name        String
+    merchant_id Int
 
     // Relationships
+    merchant        Merchant         @relation(fields: [merchant_id], references: [id])
     Product         Product[]
     product_unit    ProductUnit[]
     product_variant ProductVariant[]

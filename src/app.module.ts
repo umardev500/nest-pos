@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ClsModule } from 'nestjs-cls';
-import { CategoryModule, ProductModule } from 'src/interface/http/module';
+import {
+  CategoryModule,
+  ProductModule,
+  UnitModule,
+} from 'src/interface/http/module';
 
 @Module({
   imports: [
@@ -10,6 +14,7 @@ import { CategoryModule, ProductModule } from 'src/interface/http/module';
     }),
     ProductModule,
     CategoryModule,
+    UnitModule,
   ],
   providers: [],
 })
