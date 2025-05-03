@@ -12,6 +12,10 @@ create-db:
 
 reset-db: drop-db create-db
 
+# Seeder
+seed:
+	@bun src/infra/prisma/seeders/index.ts
+
 clear-all:
 	@rm -rf prisma/generated
 	@rm -rf prisma/migrations
