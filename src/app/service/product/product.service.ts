@@ -31,8 +31,8 @@ export class ProductService {
    * @param dto - Data Transfer Object containing product creation details.
    * @returns The newly created product.
    */
-  create(dto: CreateProductDTO) {
-    return this.productRepo.create(dto);
+  async create(dto: CreateProductDTO) {
+    return await this.productRepo.create(dto);
   }
 
   /**
