@@ -1,0 +1,45 @@
+### Get All Categories
+# Retrieve all categories for the current merchant.
+
+GET {{API_URL}}/categories
+
+
+
+### Get Category by ID
+# Fetch a single category by its ID.
+
+GET {{API_URL}}/categories/1
+
+
+
+### Create Category
+# Create a new category for a merchant.
+
+POST {{API_URL}}/categories
+Content-Type: application/json
+
+{
+  "name": "Medicine",
+  "description": "A stuff for healing",
+  "merchant_id": 1
+}
+
+
+
+### Update Category
+# Update an existing category by ID.
+
+PUT {{API_URL}}/categories/2
+Content-Type: application/json
+
+{
+  "name": "Updated Accessories",
+  "description": "Updated description for accessories"
+}
+
+
+
+### Delete Category
+# Delete a category by ID.
+
+DELETE {{API_URL}}/categories/2
