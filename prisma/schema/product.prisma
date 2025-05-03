@@ -1,7 +1,9 @@
 model Product {
-    id           Int    @id @default(autoincrement())
+    id           Int      @id @default(autoincrement())
     name         String
     base_unit_id Int
+    created_at   DateTime @default(now())
+    updated_at   DateTime @updatedAt
 
     // Relationships
     base_unit      Unit             @relation(fields: [base_unit_id], references: [id])
