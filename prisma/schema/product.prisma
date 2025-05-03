@@ -1,18 +1,22 @@
 model Product {
-    id           Int           @id @default(autoincrement())
+    id           Int    @id @default(autoincrement())
     name         String
     base_unit_id Int
-    ProductUnit  ProductUnit[]
 
     // Relationships
-    base_unit Unit @relation(fields: [base_unit_id], references: [id])
+    base_unit      Unit             @relation(fields: [base_unit_id], references: [id])
+    ProductUnit    ProductUnit[]
+    ProductVariant ProductVariant[]
 }
 
 model Unit {
-    id          Int           @id @default(autoincrement())
-    name        String
-    Product     Product[]
-    ProductUnit ProductUnit[]
+    id   Int    @id @default(autoincrement())
+    name String
+
+    // Relationships
+    Product        Product[]
+    ProductUnit    ProductUnit[]
+    ProductVariant ProductVariant[]
 }
 
 model ProductUnit {
@@ -28,4 +32,38 @@ model ProductUnit {
     unit    Unit    @relation(fields: [unit_id], references: [id])
 
     @@unique([product_id, unit_id])
+}
+
+// --- Variant ----
+model VariantType {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    // Relationships
+    VariantValue VariantValue[]
+}
+
+model VariantValue {
+    id              Int    @id @default(autoincrement())
+    variant_type_id Int
+    value           String
+
+    // Relationships
+    variant_type   VariantType      @relation(fields: [variant_type_id], references: [id])
+    ProductVariant ProductVariant[]
+}
+
+// Variant table connects Product with VariantValue and contains price, stock
+model ProductVariant {
+    id               Int   @id @default(autoincrement())
+    product_id       Int
+    unit_id          Int
+    variant_value_id Int
+    stock            Int
+    price            Float
+
+    // Relationships
+    product       Product      @relation(fields: [product_id], references: [id])
+    unit          Unit         @relation(fields: [unit_id], references: [id])
+    variant_value VariantValue @relation(fields: [variant_value_id], references: [id])
 }
