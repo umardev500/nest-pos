@@ -22,5 +22,5 @@ seed:
 
 clear-all: reset-db
 	@rm -rf prisma/generated
-	@rm -rf prisma/migrations
+	@rm -rf prisma/schema/migrations
 	@rm -rf dist
