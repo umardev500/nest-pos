@@ -21,13 +21,15 @@ Content-Type: application/json
       "unit_id": 1,
       "stock": 100,
       "price": 5.0,
-      "conversion_factor": 1
+      "conversion_factor": 1,
+      "sku": "P1-SKU-1"
     },
     {
       "unit_id": 2,
       "stock": 20,
       "price": 45.0,
-      "conversion_factor": 10
+      "conversion_factor": 10,
+      "sku": "P1-SKU-2"
     }
   ],
   "product_variants": [
@@ -35,25 +37,30 @@ Content-Type: application/json
       "unit_id": 1,
       "variant_value_id": 1,
       "stock": 50,
-      "price": 5.5
+      "price": 5.5,
+      "sku": "P1-SKU-3"
     },
     {
       "unit_id": 1,
       "variant_value_id": 2,
       "stock": 50,
-      "price": 5.2
+      "price": 5.2,
+      "sku": "P1-SKU-4"
     },
     {
       "unit_id": 2,
       "variant_value_id": 3,
       "stock": 10,
-      "price": 48.0
+      "price": 48.0,
+      "sku": "P1-SKU-5"
     },
     {
       "unit_id": 2,
       "variant_value_id": 4,
       "stock": 10,
-      "price": 50.0
+      "price": 50.0,
+      "sku": "P1-SKU-6"
     }
   ]
 }
+
