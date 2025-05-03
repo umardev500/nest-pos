@@ -1,0 +1,2 @@
+### Get products
+GET {{API_URL}}/products
