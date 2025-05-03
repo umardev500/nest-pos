@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClsModule } from 'nestjs-cls';
-import { ProductModule } from 'src/interface/http/module';
+import { CategoryModule, ProductModule } from 'src/interface/http/module';
 
 @Module({
   imports: [
@@ -9,6 +9,7 @@ import { ProductModule } from 'src/interface/http/module';
       middleware: { mount: true },
     }),
     ProductModule,
+    CategoryModule,
   ],
   providers: [],
 })

@@ -2,10 +2,13 @@ model Category {
     id          Int     @id @default(autoincrement()) // Primary key, auto-incremented
     name        String  @unique // Unique category name
     description String? // Optional description for the category
+    merchant_id Int
 
     createdAt DateTime @default(now()) // Timestamp for when the category is created
     updatedAt DateTime @updatedAt // Timestamp for when the category is updated
 
     // Relationships
+    merchant Merchant @relation(fields: [merchant_id], references: [id])
+
     Product Product[]
 }
