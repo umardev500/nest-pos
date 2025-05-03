@@ -26,12 +26,13 @@ model Unit {
 }
 
 model ProductUnit {
-    id                Int   @id @default(autoincrement())
+    id                Int    @id @default(autoincrement())
     product_id        Int
     unit_id           Int
     stock             Int
     price             Float
     conversion_factor Float
+    sku               String @unique
 
     // Relationships
     product Product @relation(fields: [product_id], references: [id])
@@ -61,12 +62,13 @@ model VariantValue {
 
 // Variant table connects Product with VariantValue and contains price, stock
 model ProductVariant {
-    id               Int   @id @default(autoincrement())
+    id               Int    @id @default(autoincrement())
     product_id       Int
     unit_id          Int
     variant_value_id Int
     stock            Int
     price            Float
+    sku              String @unique
 
     // Relationships
     product       Product      @relation(fields: [product_id], references: [id])

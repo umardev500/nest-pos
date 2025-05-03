@@ -77,6 +77,7 @@ export class ProductRepo {
       stock: unit.stock,
       price: unit.price,
       conversion_factor: unit.conversion_factor,
+      sku: unit.sku,
     }));
   }
 
@@ -90,6 +91,7 @@ export class ProductRepo {
       variant_value_id: variant.variant_value_id,
       stock: variant.stock,
       price: variant.price,
+      sku: variant.sku,
     }));
   }
 }

@@ -21,6 +21,10 @@ export class ProductUnitDTO {
 
   @IsNumber()
   conversion_factor: number;
+
+  @IsString()
+  @IsNotEmpty({ message: 'SKU is required for product unit.' })
+  sku: string;
 }
 
 export class ProductVariantDTO {
@@ -35,6 +39,10 @@ export class ProductVariantDTO {
 
   @IsNumber()
   price: number;
+
+  @IsString()
+  @IsNotEmpty({ message: 'SKU is required for product variant.' })
+  sku: string;
 }
 
 export class CreateProductDTO {
