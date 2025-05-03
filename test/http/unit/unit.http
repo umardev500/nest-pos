@@ -1,0 +1,43 @@
+### Get All Units
+# Retrieve all units for the current merchant.
+
+GET {{API_URL}}/units
+
+
+
+### Get Unit by ID
+# Fetch a single unit by its ID.
+
+GET {{API_URL}}/units/1
+
+
+
+### Create Unit
+# Create a new unit for a merchant.
+
+POST {{API_URL}}/units
+Content-Type: application/json
+
+{
+  "name": "Kilogram",
+  "merchant_id": 1
+}
+
+
+
+### Update Unit
+# Update an existing unit by ID.
+
+PUT {{API_URL}}/units/2
+Content-Type: application/json
+
+{
+  "name": "Gram"
+}
+
+
+
+### Delete Unit
+# Delete a unit by ID.
+
+DELETE {{API_URL}}/units/2
