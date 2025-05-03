@@ -1,0 +1,31 @@
+model Product {
+    id           Int           @id @default(autoincrement())
+    name         String
+    base_unit_id Int
+    ProductUnit  ProductUnit[]
+
+    // Relationships
+    base_unit Unit @relation(fields: [base_unit_id], references: [id])
+}
+
+model Unit {
+    id          Int           @id @default(autoincrement())
+    name        String
+    Product     Product[]
+    ProductUnit ProductUnit[]
+}
+
+model ProductUnit {
+    id                Int   @id @default(autoincrement())
+    product_id        Int
+    unit_id           Int
+    stock             Int
+    price             Float
+    conversion_factor Float
+
+    // Relationships
+    product Product @relation(fields: [product_id], references: [id])
+    unit    Unit    @relation(fields: [unit_id], references: [id])
+
+    @@unique([product_id, unit_id])
+}
