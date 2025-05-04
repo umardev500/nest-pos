@@ -1,8 +1,12 @@
 model OrderType {
-    id      Int     @id @default(autoincrement())
-    name    String  @unique // e.g., 'DINE_IN', 'TAKEAWAY'
-    label   String // Optional: user-friendly label like 'Dine In'
-    enabled Boolean @default(true) // Whether this type is currently available
+    id          Int     @id @default(autoincrement())
+    merchant_id Int
+    name        String  @unique // e.g., 'DINE_IN', 'TAKEAWAY'
+    label       String // Optional: user-friendly label like 'Dine In'
+    enabled     Boolean @default(true) // Whether this type is currently available
+
+    // Relationships
+    merchant Merchant @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
 
     orders Order[]
 }

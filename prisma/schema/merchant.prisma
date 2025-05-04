@@ -18,4 +18,6 @@ model Merchant {
     Discount Discount[]
 
     Order Order[]
+
+    OrderType OrderType[]
 }

@@ -1,4 +1,4 @@
-import { DiscountType, PrismaClient } from 'prisma/generated/prisma';
+import { DiscountType, Prisma, PrismaClient } from 'prisma/generated/prisma';
 
 const prisma = new PrismaClient();
 
@@ -12,16 +12,26 @@ export default async function seedDiscounts() {
   const nextMonth = new Date(now);
   nextMonth.setMonth(now.getMonth() + 1);
 
-  const discounts = [
+  const discounts: Prisma.DiscountCreateInput[] = [
     {
-      merchant_id: merchant.id,
+      merchant: {
+        connect: {
+          id: merchant.id,
+        },
+      },
+      scope: 'PRODUCT',
       type: DiscountType.PERCENT,
       value: 10,
       start_date: now,
       end_date: nextMonth,
     },
     {
-      merchant_id: merchant.id,
+      merchant: {
+        connect: {
+          id: merchant.id,
+        },
+      },
+      scope: 'PRODUCT',
       type: DiscountType.FIXED,
       value: 5000,
       start_date: now,
