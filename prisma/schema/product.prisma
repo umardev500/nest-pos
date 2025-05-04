@@ -13,9 +13,9 @@ model Product {
 
     // Relationships
     base_unit       Unit             @relation(fields: [base_unit_id], references: [id])
-    category        Category?        @relation(fields: [category_id], references: [id])
-    merchant        Merchant         @relation(fields: [merchant_id], references: [id])
-    discount        Discount?        @relation(fields: [discount_id], references: [id])
+    category        Category?        @relation(fields: [category_id], references: [id], onDelete: SetNull)
+    merchant        Merchant         @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
+    discount        Discount?        @relation(fields: [discount_id], references: [id], onDelete: SetNull)
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
 }
@@ -26,7 +26,7 @@ model Unit {
     merchant_id Int
 
     // Relationships
-    merchant        Merchant         @relation(fields: [merchant_id], references: [id])
+    merchant        Merchant         @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
     Product         Product[]
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
@@ -43,8 +43,8 @@ model ProductUnit {
     barcode           String?
 
     // Relationships
-    product Product @relation(fields: [product_id], references: [id])
-    unit    Unit    @relation(fields: [unit_id], references: [id])
+    product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+    unit    Unit    @relation(fields: [unit_id], references: [id], onDelete: Cascade)
 
     @@unique([product_id, unit_id])
 }
