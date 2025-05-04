@@ -70,6 +70,7 @@ export class ProductRepo {
     return this.prisma.product.findMany({
       where,
       include: {
+        category: true,
         base_unit: true,
         discount: true,
         product_unit: {
