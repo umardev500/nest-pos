@@ -34,10 +34,10 @@ model Order {
     updated_at DateTime  @updatedAt
 
     // Relationships
-    merchant   Merchant    @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
-    order_type OrderType   @relation(fields: [order_type_id], references: [id])
-    order_item OrderItem[]
-    payment    Payment[]
+    merchant    Merchant    @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
+    order_type  OrderType   @relation(fields: [order_type_id], references: [id])
+    order_items OrderItem[]
+    payments    Payment[]
 }
 
 model OrderItem {
@@ -56,6 +56,8 @@ model OrderItem {
     product Product         @relation(fields: [product_id], references: [id])
     variant ProductVariant? @relation(fields: [variant_id], references: [id])
     unit    Unit            @relation(fields: [unit_id], references: [id])
+
+    @@unique([order_id, product_id])
 }
 
 model Payment {

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClsModule } from 'nestjs-cls';
 import {
   CategoryModule,
+  OrderModule,
   ProductModule,
   UnitModule,
 } from 'src/interface/http/module';
@@ -15,6 +16,7 @@ import {
     ProductModule,
     CategoryModule,
     UnitModule,
+    OrderModule,
   ],
   providers: [],
 })
