@@ -65,4 +65,4 @@ Content-Type: application/json
 ### Delete Order
 # Delete an order by ID.
 
-DELETE {{API_URL}}/orders/1
+DELETE {{API_URL}}/orders/2

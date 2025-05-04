@@ -33,6 +33,17 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
       });
     }
 
+    // Handling P2025: Record to delete does not exist
+    if (exception.code === 'P2025') {
+      const modelName = exception.meta?.modelName || 'Unknown model';
+      const cause = exception.meta?.cause || 'Unknown cause';
+      return response.status(404).json({
+        statusCode: 404,
+        message: `Operation failed. ${modelName as string} record to delete does not exist. Cause: ${cause as string}`,
+        error: 'Not Found',
+      });
+    }
+
     // fallback for other errors
     response.status(500).json({
       statusCode: 500,
