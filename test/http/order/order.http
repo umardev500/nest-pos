@@ -31,6 +31,27 @@ Content-Type: application/json
   ]
 }
 
+### Create Order with variant
+# Create a new order for a merchant.
+
+POST {{API_URL}}/orders
+Content-Type: application/json
+
+{
+  "order_type_id": 2,
+  "discount_id": 1,
+  "order_items": [
+    {
+      "product_id": 1,
+      "unit_id": 1,
+      "variant_id": 1,
+      "quantity": 2,
+      "price": 20,
+      "discount_id": 1
+    }
+  ]
+}
+
 
 ### Update Order
 # Update an existing order by ID.

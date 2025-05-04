@@ -89,6 +89,10 @@ export class CreateOrderItemDTO {
   @IsNumber()
   price: number; // Price per item after applying any discount
 
+  @IsOptional()
+  @IsNotUserInput({
+    message: 'Subtotal should not be provided by the user.',
+  })
   @IsNumber()
   subtotal: number; // Price * Quantity, subtotal for the order item
 

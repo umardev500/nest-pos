@@ -67,6 +67,8 @@ export class OrderService {
         item.discount_type = discount.type;
         item.discount_value = discount.value;
       }
+
+      item.subtotal = item.price * item.quantity;
     }
   }
 
@@ -122,7 +124,8 @@ export class OrderService {
       total_amount,
     };
 
-    return this.orderRepo.create(dto);
+    // return this.orderRepo.create(dto);
+    return dto;
   }
 
   /**
