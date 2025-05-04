@@ -1,3 +1,12 @@
+model OrderType {
+    id      Int     @id @default(autoincrement())
+    name    String  @unique // e.g., 'DINE_IN', 'TAKEAWAY'
+    label   String // Optional: user-friendly label like 'Dine In'
+    enabled Boolean @default(true) // Whether this type is currently available
+
+    orders Order[]
+}
+
 enum OrderStatus {
     PENDING
     PARTIALLY_PAID
@@ -9,6 +18,7 @@ enum OrderStatus {
 model Order {
     id             Int           @id @default(autoincrement())
     merchant_id    Int
+    order_type_id  Int
     status         OrderStatus   @default(PENDING)
     total_amount   Float
     discount_type  DiscountType? // Snapshot of discount type (e.g., PERCENT, FIXED)
@@ -21,6 +31,7 @@ model Order {
 
     // Relationships
     merchant   Merchant    @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
+    order_type OrderType   @relation(fields: [order_type_id], references: [id])
     order_item OrderItem[]
     payment    Payment[]
 }
