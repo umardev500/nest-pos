@@ -1,17 +1,23 @@
+enum DiscountScope {
+    PRODUCT
+    ORDER
+}
+
 enum DiscountType {
     PERCENT
     FIXED
 }
 
 model Discount {
-    id          Int          @id @default(autoincrement())
+    id          Int           @id @default(autoincrement())
     merchant_id Int
+    scope       DiscountScope // Determines if it’s for product or order
     type        DiscountType
     value       Float
     start_date  DateTime?
     end_date    DateTime?
-    created_at  DateTime     @default(now())
-    updated_at  DateTime     @updatedAt
+    created_at  DateTime      @default(now())
+    updated_at  DateTime      @updatedAt
 
     // Relationships
     merchant Merchant @relation(fields: [merchant_id], references: [id])

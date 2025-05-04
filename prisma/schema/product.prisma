@@ -18,6 +18,8 @@ model Product {
     discount        Discount?        @relation(fields: [discount_id], references: [id], onDelete: SetNull)
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
+
+    OrderItem OrderItem[]
 }
 
 model Unit {
@@ -30,6 +32,8 @@ model Unit {
     Product         Product[]
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
+
+    OrderItem OrderItem[]
 }
 
 model ProductUnit {
@@ -83,4 +87,6 @@ model ProductVariant {
     product       Product      @relation(fields: [product_id], references: [id])
     unit          Unit         @relation(fields: [unit_id], references: [id])
     variant_value VariantValue @relation(fields: [variant_value_id], references: [id])
+
+    OrderItem OrderItem[]
 }

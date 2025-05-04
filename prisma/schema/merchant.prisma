@@ -16,4 +16,6 @@ model Merchant {
     Product Product[]
 
     Discount Discount[]
+
+    Order Order[]
 }
