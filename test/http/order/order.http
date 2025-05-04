@@ -7,7 +7,7 @@ GET {{API_URL}}/orders
 ### Get Order by ID
 # Fetch a single order by its ID.
 
-GET {{API_URL}}/orders/2
+GET {{API_URL}}/orders/8
 
 
 ### Create Order

@@ -41,6 +41,7 @@ export class OrderRepo {
     return this.prisma.order.findMany({
       where, // The where filter is optional. If not provided, it will fetch all orders.
       include: {
+        order_type: true,
         order_items: true, // Including related order items in the result
       },
     });
@@ -55,6 +56,7 @@ export class OrderRepo {
     return this.prisma.order.findFirst({
       where, // The where filter ensures the order matches the criteria
       include: {
+        order_type: true,
         order_items: true, // Including related order items in the result
       },
     });
