@@ -45,19 +45,19 @@ export class OrderService {
   }
 
   /**
-   * Resolves and applies discount for the order and its items.
+   * Applies discounts to the order and its items.
    * @param dto - The CreateOrderDTO to apply discounts to.
    * @param merchant_id - The merchant ID to ensure discounts are valid.
    */
   private async applyDiscounts(dto: CreateOrderDTO, merchant_id: number) {
-    // Resolve order-level discount if provided
+    // Resolve and apply order-level discount
     if (dto.discount_id) {
       const discount = await this.resolveDiscount(dto.discount_id, merchant_id);
       dto.discount_type = discount.type;
       dto.discount_value = discount.value;
     }
 
-    // Resolve and inject discounts for order items
+    // Resolve and apply item-level discounts
     for (const item of dto.order_items) {
       if (item.discount_id) {
         const discount = await this.resolveDiscount(
@@ -67,24 +67,23 @@ export class OrderService {
         item.discount_type = discount.type;
         item.discount_value = discount.value;
       }
-
-      item.subtotal = item.price * item.quantity;
+      item.subtotal = item.price * item.quantity; // Calculate item subtotal
     }
   }
 
   /**
-   * Calculates the total amount for the order, including order-level and item-level discounts.
+   * Calculates the total amount for the order, including both order-level and item-level discounts.
    * @param dto - The CreateOrderDTO containing order items and discounts.
    * @returns The calculated total amount of the order.
    */
   private calculateTotalAmount(dto: CreateOrderDTO): number {
     let totalAmount = 0;
 
-    // Sum up the item prices
+    // Calculate total amount for all items
     for (const item of dto.order_items) {
       let itemTotal = item.price * item.quantity;
 
-      // Apply item-level discount if any
+      // Apply item-level discount (if any)
       if (item.discount_type === 'PERCENT') {
         itemTotal -= (itemTotal * (item.discount_value || 0)) / 100;
       } else if (item.discount_type === 'FIXED') {
@@ -94,7 +93,7 @@ export class OrderService {
       totalAmount += itemTotal;
     }
 
-    // Apply order-level discount if any
+    // Apply order-level discount (if any)
     if (dto.discount_type === 'PERCENT') {
       totalAmount -= (totalAmount * (dto.discount_value || 0)) / 100;
     } else if (dto.discount_type === 'FIXED') {
@@ -118,14 +117,12 @@ export class OrderService {
     // Calculate the total amount of the order
     const total_amount = this.calculateTotalAmount(dto);
 
-    dto = {
+    // Return the newly created order with calculated total_amount
+    return this.orderRepo.create({
       ...dto,
       merchant_id,
       total_amount,
-    };
-
-    // return this.orderRepo.create(dto);
-    return dto;
+    });
   }
 
   /**

@@ -61,3 +61,5 @@ prisma/schema/migrations
 
 # Temporary files
 temp
+
+.todo.md
