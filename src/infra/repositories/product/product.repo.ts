@@ -71,6 +71,7 @@ export class ProductRepo {
       where,
       include: {
         base_unit: true,
+        discount: true,
         product_unit: {
           include: { unit: true },
         },
