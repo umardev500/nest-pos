@@ -19,13 +19,13 @@ Content-Type: application/json
 {
   "order_type_id": 2,
   "discount_id": 1,
+  "down_payment": 10,
   "order_items": [
     {
       "product_id": 1,
       "unit_id": 1,
       "quantity": 2,
       "price": 20,
-      "subtotal": 40,
       "discount_id": 1
     }
   ]
