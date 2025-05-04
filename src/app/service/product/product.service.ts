@@ -19,6 +19,10 @@ export class ProductService {
   find(filter?: ProductFilterDTO) {
     const where: Prisma.ProductWhereInput = {};
 
+    if (filter?.category_id) {
+      where.category_id = Number(filter.category_id);
+    }
+
     if (filter?.search) {
       where.OR = [{ name: { contains: filter.search } }];
     }
