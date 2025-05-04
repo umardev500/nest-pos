@@ -25,6 +25,7 @@ model Order {
     order_type_id  Int
     status         OrderStatus   @default(PENDING)
     total_amount   Float
+    discount_id    Int?
     discount_type  DiscountType? // Snapshot of discount type (e.g., PERCENT, FIXED)
     discount_value Float? // Snapshot of discount value (e.g., 10.0 = 10% or 10 fixed)
     down_payment   Float?
@@ -36,6 +37,7 @@ model Order {
     // Relationships
     merchant    Merchant    @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
     order_type  OrderType   @relation(fields: [order_type_id], references: [id])
+    discount    Discount?   @relation(fields: [discount_id], references: [id])
     order_items OrderItem[]
     payments    Payment[]
 }
@@ -49,13 +51,15 @@ model OrderItem {
     quantity       Int
     price          Float // price per item (in case of discounts at time of purchase)
     subtotal       Float // price * quantity
+    discount_id    Int?
     discount_value Float?
     discount_type  DiscountType?
 
-    order   Order           @relation(fields: [order_id], references: [id], onDelete: Cascade)
-    product Product         @relation(fields: [product_id], references: [id])
-    variant ProductVariant? @relation(fields: [variant_id], references: [id])
-    unit    Unit            @relation(fields: [unit_id], references: [id])
+    order    Order           @relation(fields: [order_id], references: [id], onDelete: Cascade)
+    product  Product         @relation(fields: [product_id], references: [id])
+    variant  ProductVariant? @relation(fields: [variant_id], references: [id])
+    unit     Unit            @relation(fields: [unit_id], references: [id])
+    discount Discount?       @relation(fields: [discount_id], references: [id])
 
     @@unique([order_id, product_id])
 }

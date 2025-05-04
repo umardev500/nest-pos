@@ -17,25 +17,16 @@ POST {{API_URL}}/orders
 Content-Type: application/json
 
 {
-  "merchant_id": 1,
   "order_type_id": 2,
-  "total_amount": 100,
-  "discount_type": "PERCENT",
-  "discount_value": 10,
+  "discount_id": 1,
   "order_items": [
     {
       "product_id": 1,
       "unit_id": 1,
       "quantity": 2,
       "price": 20,
-      "subtotal": 40
-    },
-    {
-      "product_id": 2,
-      "unit_id": 1,
-      "quantity": 1,
-      "price": 60,
-      "subtotal": 60
+      "subtotal": 40,
+      "discount_id": 1
     }
   ]
 }

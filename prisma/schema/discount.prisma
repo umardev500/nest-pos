@@ -25,4 +25,8 @@ model Discount {
     // Back relation
 
     Product Product[]
+
+    Order Order[]
+
+    OrderItem OrderItem[]
 }

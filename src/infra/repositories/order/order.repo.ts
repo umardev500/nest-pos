@@ -26,6 +26,9 @@ export class OrderRepo {
           })),
         },
       },
+      include: {
+        order_items: true,
+      },
     });
   }
 
