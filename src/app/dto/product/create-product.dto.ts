@@ -106,6 +106,10 @@ export class CreateProductDTO {
   @IsNotEmpty({ message: 'Merchant ID is required.' })
   merchant_id: number;
 
+  @IsOptional()
+  @IsInt()
+  discount_id?: number;
+
   @IsArray()
   @ArrayMinSize(1, { message: 'At least one product unit is required.' })
   @ValidateNested({ each: true })

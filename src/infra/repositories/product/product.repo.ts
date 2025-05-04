@@ -24,6 +24,7 @@ export class ProductRepo {
       base_unit_id,
       category_id,
       merchant_id,
+      discount_id,
       product_units,
       product_variants,
     } = dto;
@@ -37,6 +38,7 @@ export class ProductRepo {
         base_unit_id,
         category_id,
         merchant_id,
+        discount_id,
         product_unit: {
           create: this.mapProductUnits(product_units),
         },

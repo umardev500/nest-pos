@@ -1,0 +1,22 @@
+enum DiscountType {
+    PERCENT
+    FIXED
+}
+
+model Discount {
+    id          Int          @id @default(autoincrement())
+    merchant_id Int
+    type        DiscountType
+    value       Float
+    start_date  DateTime?
+    end_date    DateTime?
+    created_at  DateTime     @default(now())
+    updated_at  DateTime     @updatedAt
+
+    // Relationships
+    merchant Merchant @relation(fields: [merchant_id], references: [id])
+
+    // Back relation
+
+    Product Product[]
+}

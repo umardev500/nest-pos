@@ -14,4 +14,6 @@ model Merchant {
     Unit Unit[]
 
     Product Product[]
+
+    Discount Discount[]
 }
