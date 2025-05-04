@@ -16,7 +16,7 @@ async function createProductWithUnitsAndVariants(dto: CreateProductDTO) {
       base_unit_id: dto.base_unit_id,
       category_id: dto.category_id,
       merchant_id: dto.merchant_id,
-      product_unit: {
+      product_units: {
         create: dto.product_units.map((unit: ProductUnitDTO) => ({
           unit_id: unit.unit_id,
           stock: unit.stock,
@@ -25,7 +25,7 @@ async function createProductWithUnitsAndVariants(dto: CreateProductDTO) {
           sku: unit.sku,
         })),
       },
-      product_variant: {
+      product_variants: {
         create: dto.product_variants.map((variant: ProductVariantDTO) => ({
           unit_id: variant.unit_id,
           variant_value_id: variant.variant_value_id,
@@ -36,8 +36,8 @@ async function createProductWithUnitsAndVariants(dto: CreateProductDTO) {
       },
     },
     include: {
-      product_unit: true,
-      product_variant: true,
+      product_units: true,
+      product_variants: true,
     },
   });
 }

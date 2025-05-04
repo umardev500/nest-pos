@@ -12,14 +12,14 @@ model Product {
     updated_at   DateTime @updatedAt
 
     // Relationships
-    base_unit       Unit             @relation(fields: [base_unit_id], references: [id])
-    category        Category?        @relation(fields: [category_id], references: [id], onDelete: SetNull)
-    merchant        Merchant         @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
-    discount        Discount?        @relation(fields: [discount_id], references: [id], onDelete: SetNull)
-    product_unit    ProductUnit[]
-    product_variant ProductVariant[]
+    base_unit        Unit             @relation(fields: [base_unit_id], references: [id])
+    category         Category?        @relation(fields: [category_id], references: [id], onDelete: SetNull)
+    merchant         Merchant         @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
+    discount         Discount?        @relation(fields: [discount_id], references: [id], onDelete: SetNull)
+    product_units    ProductUnit[]
+    product_variants ProductVariant[]
 
-    OrderItem OrderItem[]
+    order_item OrderItem[]
 }
 
 model Unit {
@@ -33,7 +33,7 @@ model Unit {
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
 
-    OrderItem OrderItem[]
+    order_item OrderItem[]
 }
 
 model ProductUnit {
@@ -88,5 +88,5 @@ model ProductVariant {
     unit          Unit         @relation(fields: [unit_id], references: [id])
     variant_value VariantValue @relation(fields: [variant_value_id], references: [id])
 
-    OrderItem OrderItem[]
+    order_item OrderItem[]
 }

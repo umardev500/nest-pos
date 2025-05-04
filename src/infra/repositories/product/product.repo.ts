@@ -39,16 +39,16 @@ export class ProductRepo {
         category_id,
         merchant_id,
         discount_id,
-        product_unit: {
+        product_units: {
           create: this.mapProductUnits(product_units),
         },
-        product_variant: {
+        product_variants: {
           create: this.mapProductVariants(product_variants),
         },
       },
       include: {
-        product_unit: true,
-        product_variant: true,
+        product_units: true,
+        product_variants: true,
       },
     });
   }
@@ -73,10 +73,10 @@ export class ProductRepo {
         category: true,
         base_unit: true,
         discount: true,
-        product_unit: {
+        product_units: {
           include: { unit: true },
         },
-        product_variant: {
+        product_variants: {
           include: {
             variant_value: true,
             unit: true,
