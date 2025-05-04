@@ -61,6 +61,15 @@ Content-Type: application/json
   ]
 }
 
+### Update an existing order status by ID.
+
+PUT {{API_URL}}/orders/3
+Content-Type: application/json
+
+{
+  "status": "COMPLETED"
+}
+
 
 ### Delete Order
 # Delete an order by ID.
