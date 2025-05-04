@@ -7,6 +7,7 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
+    // Handling P2003: Foreign key constraint failed
     if (exception.code === 'P2003') {
       return response.status(400).json({
         statusCode: 400,
@@ -15,7 +16,17 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
       });
     }
 
-    // fallback
+    // Handling P2002: Unique constraint failed (duplicate entry)
+    if (exception.code === 'P2002') {
+      const target = exception.meta?.target || 'unknown field';
+      return response.status(409).json({
+        statusCode: 409,
+        message: `Unique constraint failed on the ${target as string}. Duplicate entry.`,
+        error: 'Conflict',
+      });
+    }
+
+    // fallback for other errors
     response.status(500).json({
       statusCode: 500,
       message: exception.message,
