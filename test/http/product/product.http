@@ -14,9 +14,13 @@ POST {{API_URL}}/products
 Content-Type: application/json
 
 {
-  "name": "Cheese Burger 2",
-  "barcode": "P1-BARCODE",
+  "name": "Cheese Burger 3",
+  "description": "Delicious cheese burger",
+  "image_url": "https://example.com/cheese-burger.jpg",
+  "barcode": "P3-BARCODE",
   "base_unit_id": 1,
+  "category_id": 1,
+  "merchant_id": 1,
   "product_units": [
     {
       "unit_id": 1,

@@ -14,6 +14,8 @@ async function createProductWithUnitsAndVariants(dto: CreateProductDTO) {
     data: {
       name: dto.name,
       base_unit_id: dto.base_unit_id,
+      category_id: dto.category_id,
+      merchant_id: dto.merchant_id,
       product_unit: {
         create: dto.product_units.map((unit: ProductUnitDTO) => ({
           unit_id: unit.unit_id,
@@ -63,6 +65,8 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
   return {
     name: 'Cheese Burger',
     base_unit_id: pieceUnit.id,
+    category_id: 1,
+    merchant_id: 1,
     product_units: [
       {
         unit_id: pieceUnit.id,

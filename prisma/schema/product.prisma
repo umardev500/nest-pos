@@ -1,15 +1,19 @@
 model Product {
     id           Int      @id @default(autoincrement())
     name         String
+    description  String?
+    image_url    String?
     barcode      String?
     base_unit_id Int
     category_id  Int?
+    merchant_id  Int
     created_at   DateTime @default(now())
     updated_at   DateTime @updatedAt
 
     // Relationships
     base_unit       Unit             @relation(fields: [base_unit_id], references: [id])
     category        Category?        @relation(fields: [category_id], references: [id])
+    merchant        Merchant         @relation(fields: [merchant_id], references: [id])
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
 }

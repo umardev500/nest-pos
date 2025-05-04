@@ -40,7 +40,5 @@ export class ProductService {
    * @param id - ID of the product to fetch.
    * @returns The product with the given ID.
    */
-  findOne(id: number) {
-    return this.productRepo.find({ id });
-  }
+  findOne(id: number) {}
 }

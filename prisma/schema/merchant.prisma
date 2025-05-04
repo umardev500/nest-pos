@@ -12,4 +12,6 @@ model Merchant {
     category Category[]
 
     Unit Unit[]
+
+    Product Product[]
 }

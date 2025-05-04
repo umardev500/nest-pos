@@ -12,6 +12,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
+// DTO for Product Unit
 export class ProductUnitDTO {
   @IsInt()
   unit_id: number;
@@ -40,6 +41,7 @@ export class ProductUnitDTO {
   barcode?: string;
 }
 
+// DTO for Product Variant
 export class ProductVariantDTO {
   @IsInt()
   unit_id: number;
@@ -68,6 +70,7 @@ export class ProductVariantDTO {
   barcode?: string;
 }
 
+// DTO for creating a Product
 export class CreateProductDTO {
   @IsNotEmpty()
   @IsString()
@@ -83,9 +86,25 @@ export class CreateProductDTO {
   }) // Optional length constraint
   barcode?: string;
 
+  @IsOptional() // Optional, as description and image_url can be null
+  @IsString()
+  description?: string;
+
+  @IsOptional() // Optional, as image_url can be null
+  @IsString()
+  image_url?: string;
+
   @IsInt()
   @IsNotEmpty({ message: 'Base unit ID is required.' })
   base_unit_id: number;
+
+  @IsOptional() // Optional, as category_id can be null
+  @IsInt()
+  category_id?: number;
+
+  @IsInt()
+  @IsNotEmpty({ message: 'Merchant ID is required.' })
+  merchant_id: number;
 
   @IsArray()
   @ArrayMinSize(1, { message: 'At least one product unit is required.' })

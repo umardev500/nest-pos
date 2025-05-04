@@ -16,13 +16,27 @@ export class ProductRepo {
    * @param dto - Data Transfer Object containing product creation details.
    */
   async create(dto: CreateProductDTO) {
-    const { name, base_unit_id, product_units, product_variants } = dto;
+    const {
+      name,
+      description,
+      image_url,
+      barcode,
+      base_unit_id,
+      category_id,
+      merchant_id,
+      product_units,
+      product_variants,
+    } = dto;
 
     return this.prisma.product.create({
       data: {
         name,
-        barcode: dto.barcode,
+        description,
+        image_url,
+        barcode,
         base_unit_id,
+        category_id,
+        merchant_id,
         product_unit: {
           create: this.mapProductUnits(product_units),
         },
