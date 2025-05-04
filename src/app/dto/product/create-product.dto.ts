@@ -5,7 +5,10 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
+  Length,
+  Matches,
   ValidateNested,
 } from 'class-validator';
 
@@ -25,6 +28,16 @@ export class ProductUnitDTO {
   @IsString()
   @IsNotEmpty({ message: 'SKU is required for product unit.' })
   sku: string;
+
+  @IsOptional() // Optional, as barcode can be null
+  @IsString()
+  @Matches(/^[a-zA-Z0-9-]+$/, {
+    message: 'Barcode must be alphanumeric and may include hyphens.',
+  })
+  @Length(8, 16, {
+    message: 'Barcode must be between 8 and 16 characters long.',
+  }) // Optional length constraint
+  barcode?: string;
 }
 
 export class ProductVariantDTO {
@@ -43,12 +56,32 @@ export class ProductVariantDTO {
   @IsString()
   @IsNotEmpty({ message: 'SKU is required for product variant.' })
   sku: string;
+
+  @IsOptional() // Optional, as barcode can be null
+  @IsString()
+  @Matches(/^[a-zA-Z0-9-]+$/, {
+    message: 'Barcode must be alphanumeric and may include hyphens.',
+  })
+  @Length(8, 16, {
+    message: 'Barcode must be between 8 and 16 characters long.',
+  }) // Optional length constraint
+  barcode?: string;
 }
 
 export class CreateProductDTO {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @IsOptional() // Optional, as barcode can be null
+  @IsString()
+  @Matches(/^[a-zA-Z0-9-]+$/, {
+    message: 'Barcode must be alphanumeric and may include hyphens.',
+  })
+  @Length(8, 16, {
+    message: 'Barcode must be between 8 and 16 characters long.',
+  }) // Optional length constraint
+  barcode?: string;
 
   @IsInt()
   @IsNotEmpty({ message: 'Base unit ID is required.' })

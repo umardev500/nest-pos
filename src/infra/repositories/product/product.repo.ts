@@ -21,6 +21,7 @@ export class ProductRepo {
     return this.prisma.product.create({
       data: {
         name,
+        barcode: dto.barcode,
         base_unit_id,
         product_unit: {
           create: this.mapProductUnits(product_units),
