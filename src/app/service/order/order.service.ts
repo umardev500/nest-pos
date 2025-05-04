@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ClsService } from 'nestjs-cls';
 import { CreateOrderDTO, UpdateOrderDTO } from 'src/app/dto';
 import { CLS_USER_KEY } from 'src/constants/cls.constants';
@@ -52,12 +52,18 @@ export class OrderService {
    * @param id - ID of the order.
    * @returns The order with the given ID, or null if not found.
    */
-  findOne(id: number) {
+  async findOne(id: number) {
     const merchant_id = this.getMerchantId(); // Get the merchant_id from CLS context
-    return this.orderRepo.findOne({
+    const order = await this.orderRepo.findOne({
       id,
       merchant_id, // Pass merchant_id to ensure it belongs to the current merchant
     });
+
+    if (!order) {
+      throw new NotFoundException(`Order with ID ${id} not found.`);
+    }
+
+    return order;
   }
 
   /**
