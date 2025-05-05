@@ -1,4 +1,4 @@
-@product_id = 7
+@product_id = 11
 
 ### Get Products
 # Retrieve a list of products. Optionally, filter by a search term.
@@ -165,10 +165,27 @@ Content-Type: application/json
   "product_variants": [
     {
       "unit_id": 1,
-      "variant_value_id": 1,
-      "stock": 60,
-      "price": 1600.5,
-      "sku": "P1-SKU-3-UPDATED"
+      "stock": 50,
+      "price": 3300.5,
+      "sku": "CBG12-PCB-BEEF",
+      "barcode": "12345678",
+      "product_variant_values": [
+        { "variant_value_id": 1 },
+        { "variant_value_id": 2 },
+        { "variant_value_id": 3 } 
+      ]
+    },
+    {
+      "unit_id": 1,
+      "stock": 50,
+      "price": 5000.5,
+      "sku": "CBG12-PCC-BEEF",
+      "barcode": "12345678",
+      "product_variant_values": [
+        { "variant_value_id": 1 },
+        { "variant_value_id": 2 },
+        { "variant_value_id": 4 }
+      ]
     }
   ]
 }
