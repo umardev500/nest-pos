@@ -83,7 +83,11 @@ export class ProductRepo {
         },
         product_variants: {
           include: {
-            variant_value: true,
+            variant_value: {
+              include: {
+                variant_type: true,
+              },
+            },
             unit: true,
           },
         },
@@ -161,7 +165,11 @@ export class ProductRepo {
         },
         product_variants: {
           include: {
-            variant_value: true,
+            variant_value: {
+              include: {
+                variant_type: true,
+              },
+            },
             unit: true,
           },
         },
