@@ -18,8 +18,7 @@ model Product {
     discount         Discount?        @relation(fields: [discount_id], references: [id], onDelete: SetNull)
     product_units    ProductUnit[]
     product_variants ProductVariant[]
-
-    order_item OrderItem[]
+    order_item       OrderItem[]
 }
 
 model Unit {
@@ -32,8 +31,7 @@ model Unit {
     Product         Product[]
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
-
-    order_item OrderItem[]
+    order_item      OrderItem[]
 }
 
 model ProductUnit {
@@ -53,7 +51,8 @@ model ProductUnit {
     @@unique([product_id, unit_id])
 }
 
-// --- Variant ----
+// --- Variant System ---
+
 model VariantType {
     id   Int    @id @default(autoincrement())
     name String
@@ -72,7 +71,7 @@ model VariantValue {
     product_variant_values ProductVariantValue[]
 }
 
-// Variant table connects Product with VariantValue and contains price, stock
+// Connects Product with VariantValue (via ProductVariant) and holds specific pricing/stock
 model ProductVariant {
     id         Int     @id @default(autoincrement())
     product_id Int
@@ -83,11 +82,10 @@ model ProductVariant {
     barcode    String?
 
     // Relationships
-    product Product @relation(fields: [product_id], references: [id])
-
-    order_item             OrderItem[]
-    product_variant_values ProductVariantValue[]
+    product                Product               @relation(fields: [product_id], references: [id])
     unit                   Unit?                 @relation(fields: [unit_id], references: [id])
+    product_variant_values ProductVariantValue[]
+    order_item             OrderItem[]
 }
 
 model ProductVariantValue {
