@@ -81,6 +81,28 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
       {
         variant_value_id: beef.id, // Referencing the 'Chicken' variant
       },
+      {
+        variant_value_id: small.id, // Referencing the 'Chicken' variant
+      },
+    ],
+  };
+
+  const productVariantDTO2: ProductVariantDTO = {
+    unit_id: pieceUnit.id,
+    stock: 50,
+    price: 5000.5,
+    sku: 'CBG-PCX-BEEF',
+    barcode: '12345678',
+    product_variant_values: [
+      {
+        variant_value_id: chicken.id, // Referencing the 'Beef' variant
+      },
+      {
+        variant_value_id: beef.id, // Referencing the 'Chicken' variant
+      },
+      {
+        variant_value_id: large.id, // Referencing the 'Chicken' variant
+      },
     ],
   };
 
@@ -105,7 +127,7 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
         sku: 'CBG-BOX-001',
       },
     ],
-    product_variants: [productVariantDTO],
+    product_variants: [productVariantDTO, productVariantDTO2],
   };
 }
 

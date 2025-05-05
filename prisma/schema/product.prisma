@@ -87,7 +87,7 @@ model ProductVariant {
 
     order_item             OrderItem[]
     product_variant_values ProductVariantValue[]
-    Unit                   Unit?                 @relation(fields: [unit_id], references: [id])
+    unit                   Unit?                 @relation(fields: [unit_id], references: [id])
 }
 
 model ProductVariantValue {
