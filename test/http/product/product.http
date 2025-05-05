@@ -1,3 +1,5 @@
+@product_id = 1
+
 ### Get Products
 # Retrieve a list of products. Optionally, filter by a search term.
 
@@ -7,8 +9,17 @@ GET {{API_URL}}/products
 # - search (optional): Filter products by name, unit, or variant. Case-insensitive.
 #   Example: ?search=shirt
 
+### Get Product by ID
+# Fetch a product by its ID.
 
-### Create product
+GET {{API_URL}}/products/{{product_id}}
+
+# Path Parameters:
+# - product_id: The ID of the product to fetch.
+# Example: /products/1
+
+### Create Product
+# Create a new product along with its units and variants.
 
 POST {{API_URL}}/products
 Content-Type: application/json
@@ -70,8 +81,8 @@ Content-Type: application/json
   ]
 }
 
-
-###  Create product without variants
+### Create Product Without Variants
+# Create a new product without variants.
 
 POST {{API_URL}}/products
 Content-Type: application/json
@@ -104,7 +115,8 @@ Content-Type: application/json
   "product_variants": []
 }
 
-###  Create product without variants single unit
+### Create Product Without Variants (Single Unit)
+# Create a new product without variants and with a single unit.
 
 POST {{API_URL}}/products
 Content-Type: application/json
@@ -129,3 +141,47 @@ Content-Type: application/json
   ],
   "product_variants": []
 }
+
+### Update Product by ID
+# Update an existing product and its related units and variants.
+
+PUT {{API_URL}}/products/{{product_id}}
+Content-Type: application/json
+
+{
+  "name": "Updated Cheese Burger",
+  "description": "Updated description for cheese burger",
+  "image_url": "https://example.com/updated-cheese-burger.jpg",
+  "barcode": "XR-094895987",
+  "base_unit_id": 1,
+  "category_id": 1,
+  "merchant_id": 1,
+  "discount_id": 1,
+  "product_units": [
+    {
+      "unit_id": 1,
+      "stock": 200,
+      "price": 5500.0,
+      "conversion_factor": 1,
+      "sku": "P1-SKU-1-UPDATED"
+    }
+  ],
+  "product_variants": [
+    {
+      "unit_id": 1,
+      "variant_value_id": 1,
+      "stock": 60,
+      "price": 1600.5,
+      "sku": "P1-SKU-3-UPDATED"
+    }
+  ]
+}
+
+### Delete Product by ID
+# Delete a product and its related units/variants (via ON DELETE CASCADE).
+
+DELETE {{API_URL}}/products/{{product_id}}
+
+# Path Parameters:
+# - product_id: The ID of the product to delete.
+# Example: /products/1
