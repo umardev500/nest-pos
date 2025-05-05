@@ -44,15 +44,18 @@ export class UpdateProductUnitDTO {
   barcode?: string;
 }
 
+// Nested DTO for updating product variant values
+export class UpdateProductVariantValueDTO {
+  @IsOptional()
+  @IsInt()
+  variant_value_id?: number;
+}
+
 // DTO for updating Product Variant
 export class UpdateProductVariantDTO {
   @IsOptional()
   @IsInt()
   unit_id?: number;
-
-  @IsOptional()
-  @IsInt()
-  variant_value_id?: number;
 
   @IsOptional()
   @IsInt()
@@ -75,6 +78,12 @@ export class UpdateProductVariantDTO {
     message: 'Barcode must be between 8 and 16 characters long.',
   })
   barcode?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => UpdateProductVariantValueDTO)
+  product_variant_values?: UpdateProductVariantValueDTO[];
 }
 
 // DTO for updating a Product

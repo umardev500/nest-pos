@@ -207,15 +207,23 @@ export class ProductRepo {
    * @returns The mapped product variant data.
    */
   private mapProductVariants(
-    variants: ProductVariantDTO[] | UpdateProductVariantDTO[],
-  ) {
+    variants: ProductVariantDTO[] | UpdateProductVariantDTO[] = [],
+  ): Prisma.ProductVariantCreateWithoutProductInput[] {
     return variants.map((variant) => ({
       unit_id: variant.unit_id,
-      variant_value_id: variant.variant_value_id,
       stock: variant.stock,
       price: variant.price,
       sku: variant.sku,
       barcode: variant.barcode,
+      product_variant_values: variant.product_variant_values?.length
+        ? {
+            create: variant.product_variant_values.map((value) => ({
+              variant_value: {
+                connect: { id: value.variant_value_id },
+              },
+            })),
+          }
+        : undefined,
     }));
   }
 }
