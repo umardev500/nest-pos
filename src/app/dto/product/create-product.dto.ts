@@ -41,13 +41,15 @@ export class ProductUnitDTO {
   barcode?: string;
 }
 
+export class ProductVariantValueDTO {
+  @IsInt()
+  variant_value_id: number;
+}
+
 // DTO for Product Variant
 export class ProductVariantDTO {
   @IsInt()
   unit_id: number;
-
-  @IsInt()
-  variant_value_id: number;
 
   @IsInt()
   stock: number;
@@ -68,6 +70,10 @@ export class ProductVariantDTO {
     message: 'Barcode must be between 8 and 16 characters long.',
   }) // Optional length constraint
   barcode?: string;
+
+  @ValidateNested({ each: true })
+  @Type(() => ProductVariantValueDTO)
+  product_variant_values: ProductVariantValueDTO[];
 }
 
 // DTO for creating a Product

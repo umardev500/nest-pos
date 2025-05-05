@@ -68,25 +68,36 @@ model VariantValue {
     value           String
 
     // Relationships
-    variant_type    VariantType      @relation(fields: [variant_type_id], references: [id])
-    product_variant ProductVariant[]
+    variant_type           VariantType           @relation(fields: [variant_type_id], references: [id])
+    product_variant_values ProductVariantValue[]
 }
 
 // Variant table connects Product with VariantValue and contains price, stock
 model ProductVariant {
-    id               Int     @id @default(autoincrement())
-    product_id       Int
-    unit_id          Int
-    variant_value_id Int
-    stock            Int
-    price            Float
-    sku              String  @unique
-    barcode          String?
+    id         Int     @id @default(autoincrement())
+    product_id Int
+    unit_id    Int
+    stock      Int
+    price      Float
+    sku        String  @unique
+    barcode    String?
 
     // Relationships
-    product       Product      @relation(fields: [product_id], references: [id])
-    unit          Unit         @relation(fields: [unit_id], references: [id])
-    variant_value VariantValue @relation(fields: [variant_value_id], references: [id])
+    product Product @relation(fields: [product_id], references: [id])
 
-    order_item OrderItem[]
+    order_item             OrderItem[]
+    product_variant_values ProductVariantValue[]
+    Unit                   Unit?                 @relation(fields: [unit_id], references: [id])
+}
+
+model ProductVariantValue {
+    id                 Int @id @default(autoincrement())
+    product_variant_id Int
+    variant_value_id   Int
+
+    // Relationships
+    product_variant ProductVariant @relation(fields: [product_variant_id], references: [id])
+    variant_value   VariantValue   @relation(fields: [variant_value_id], references: [id])
+
+    @@unique([product_variant_id, variant_value_id])
 }

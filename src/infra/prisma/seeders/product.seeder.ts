@@ -28,10 +28,16 @@ async function createProductWithUnitsAndVariants(dto: CreateProductDTO) {
       product_variants: {
         create: dto.product_variants.map((variant: ProductVariantDTO) => ({
           unit_id: variant.unit_id,
-          variant_value_id: variant.variant_value_id,
+          // For variant_value, ensure you get the correct variant_value_id
+          product_variant_values: {
+            create: variant.product_variant_values.map((value) => ({
+              variant_value_id: value.variant_value_id,
+            })),
+          },
           stock: variant.stock,
           price: variant.price,
           sku: variant.sku,
+          barcode: variant.barcode,
         })),
       },
     },
@@ -62,6 +68,22 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
     .find((v) => v.name === 'Size')!
     .values.find((v) => v.value === 'Large')!;
 
+  const productVariantDTO: ProductVariantDTO = {
+    unit_id: pieceUnit.id,
+    stock: 50,
+    price: 3300.5,
+    sku: 'CBG-PCS-BEEF',
+    barcode: '12345678',
+    product_variant_values: [
+      {
+        variant_value_id: chicken.id, // Referencing the 'Beef' variant
+      },
+      {
+        variant_value_id: beef.id, // Referencing the 'Chicken' variant
+      },
+    ],
+  };
+
   return {
     name: 'Cheese Burger',
     base_unit_id: pieceUnit.id,
@@ -83,36 +105,7 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
         sku: 'CBG-BOX-001',
       },
     ],
-    product_variants: [
-      {
-        unit_id: pieceUnit.id,
-        variant_value_id: beef.id,
-        stock: 50,
-        price: 3300.5,
-        sku: 'CBG-PCS-BEEF',
-      },
-      {
-        unit_id: pieceUnit.id,
-        variant_value_id: chicken.id,
-        stock: 50,
-        price: 5000.2,
-        sku: 'CBG-PCS-CHKN',
-      },
-      {
-        unit_id: boxUnit.id,
-        variant_value_id: small.id,
-        stock: 10,
-        price: 4908.0,
-        sku: 'CBG-BOX-SML',
-      },
-      {
-        unit_id: boxUnit.id,
-        variant_value_id: large.id,
-        stock: 10,
-        price: 500.0,
-        sku: 'CBG-BOX-LRG',
-      },
-    ],
+    product_variants: [productVariantDTO],
   };
 }
 
