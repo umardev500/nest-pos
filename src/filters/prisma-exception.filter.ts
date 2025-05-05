@@ -39,7 +39,7 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
       const cause = exception.meta?.cause || 'Unknown cause';
       return response.status(404).json({
         statusCode: 404,
-        message: `Operation failed. ${modelName as string} record to delete does not exist. Cause: ${cause as string}`,
+        message: `Operation failed. ${modelName as string} record to delete/update does not exist. Cause: ${cause as string}`,
         error: 'Not Found',
       });
     }
