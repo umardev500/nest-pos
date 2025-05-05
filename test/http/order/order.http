@@ -23,59 +23,33 @@ Content-Type: application/json
   "order_items": [
     {
       "product_id": 1,
-      "unit_id": 1,
       "quantity": 2,
       "price": 20,
       "discount_id": 1
     }
   ]
 }
-
-### Create Order with variant
-# Create a new order for a merchant.
-
-POST {{API_URL}}/orders
-Content-Type: application/json
-
-{
-  "order_type_id": 2,
-  "discount_id": 1,
-  "order_items": [
-    {
-      "product_id": 1,
-      "unit_id": 1,
-      "variant_id": 1,
-      "quantity": 2,
-      "price": 20,
-      "discount_id": 1
-    }
-  ]
-}
-
 
 ### Update Order
 # Update an existing order by ID.
 
-PUT {{API_URL}}/orders/2
+PUT {{API_URL}}/orders/1
 Content-Type: application/json
 
 {
   "status": "PAID",
-  "discount_value": 15,
   "order_items": [
     {
       "product_id": 2,
-      "unit_id": 1,
       "quantity": 3,
-      "price": 1000,
-      "subtotal": 60
+      "price": 1000
     }
   ]
 }
 
 ### Update an existing order status by ID.
 
-PUT {{API_URL}}/orders/3
+PUT {{API_URL}}/orders/1
 Content-Type: application/json
 
 {
@@ -86,4 +60,4 @@ Content-Type: application/json
 ### Delete Order
 # Delete an order by ID.
 
-DELETE {{API_URL}}/orders/2
+DELETE {{API_URL}}/orders/1

@@ -31,7 +31,6 @@ model Unit {
     Product         Product[]
     product_unit    ProductUnit[]
     product_variant ProductVariant[]
-    order_item      OrderItem[]
 }
 
 model ProductUnit {
@@ -85,7 +84,6 @@ model ProductVariant {
     product                Product               @relation(fields: [product_id], references: [id])
     unit                   Unit?                 @relation(fields: [unit_id], references: [id])
     product_variant_values ProductVariantValue[]
-    order_item             OrderItem[]
 }
 
 model ProductVariantValue {

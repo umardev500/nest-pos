@@ -77,13 +77,6 @@ export class CreateOrderItemDTO {
   product_id: number; // ID of the product being ordered
 
   @IsInt()
-  @IsOptional()
-  variant_id?: number; // Optional: ID of the product variant (if applicable)
-
-  @IsInt()
-  unit_id: number; // ID of the unit (e.g., KG, Litre, Piece, etc.)
-
-  @IsInt()
   quantity: number; // The quantity of the product ordered
 
   @IsNumber()
