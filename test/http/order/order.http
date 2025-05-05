@@ -26,6 +26,12 @@ Content-Type: application/json
       "quantity": 2,
       "price": 20,
       "discount_id": 1
+    },
+    {
+      "product_id": 2,
+      "quantity": 2,
+      "price": 2000,
+      "discount_id": 1
     }
   ]
 }
@@ -33,14 +39,14 @@ Content-Type: application/json
 ### Update Order
 # Update an existing order by ID.
 
-PUT {{API_URL}}/orders/1
+PUT {{API_URL}}/orders/2
 Content-Type: application/json
 
 {
   "status": "PAID",
   "order_items": [
     {
-      "product_id": 2,
+      "product_id": 1,
       "quantity": 3,
       "price": 1000
     }
@@ -49,7 +55,7 @@ Content-Type: application/json
 
 ### Update an existing order status by ID.
 
-PUT {{API_URL}}/orders/1
+PUT {{API_URL}}/orders/2
 Content-Type: application/json
 
 {
@@ -60,4 +66,4 @@ Content-Type: application/json
 ### Delete Order
 # Delete an order by ID.
 
-DELETE {{API_URL}}/orders/1
+DELETE {{API_URL}}/orders/2
