@@ -12,7 +12,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-// DTO for Product Unit
+// --- Product Unit DTO ---
 export class ProductUnitDTO {
   @IsInt()
   unit_id: number;
@@ -30,23 +30,24 @@ export class ProductUnitDTO {
   @IsNotEmpty({ message: 'SKU is required for product unit.' })
   sku: string;
 
-  @IsOptional() // Optional, as barcode can be null
+  @IsOptional()
   @IsString()
   @Matches(/^[a-zA-Z0-9-]+$/, {
     message: 'Barcode must be alphanumeric and may include hyphens.',
   })
   @Length(8, 16, {
     message: 'Barcode must be between 8 and 16 characters long.',
-  }) // Optional length constraint
+  })
   barcode?: string;
 }
 
+// --- Product Variant Value DTO ---
 export class ProductVariantValueDTO {
   @IsInt()
   variant_value_id: number;
 }
 
-// DTO for Product Variant
+// --- Product Variant DTO ---
 export class ProductVariantDTO {
   @IsInt()
   unit_id: number;
@@ -61,42 +62,44 @@ export class ProductVariantDTO {
   @IsNotEmpty({ message: 'SKU is required for product variant.' })
   sku: string;
 
-  @IsOptional() // Optional, as barcode can be null
+  @IsOptional()
   @IsString()
   @Matches(/^[a-zA-Z0-9-]+$/, {
     message: 'Barcode must be alphanumeric and may include hyphens.',
   })
   @Length(8, 16, {
     message: 'Barcode must be between 8 and 16 characters long.',
-  }) // Optional length constraint
+  })
   barcode?: string;
 
+  @IsArray()
+  @ArrayMinSize(1, { message: 'At least one variant value must be provided.' })
   @ValidateNested({ each: true })
   @Type(() => ProductVariantValueDTO)
   product_variant_values: ProductVariantValueDTO[];
 }
 
-// DTO for creating a Product
+// --- Main Create Product DTO ---
 export class CreateProductDTO {
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty({ message: 'Product name is required.' })
   name: string;
 
-  @IsOptional() // Optional, as barcode can be null
+  @IsOptional()
   @IsString()
   @Matches(/^[a-zA-Z0-9-]+$/, {
     message: 'Barcode must be alphanumeric and may include hyphens.',
   })
   @Length(8, 16, {
     message: 'Barcode must be between 8 and 16 characters long.',
-  }) // Optional length constraint
+  })
   barcode?: string;
 
-  @IsOptional() // Optional, as description and image_url can be null
+  @IsOptional()
   @IsString()
   description?: string;
 
-  @IsOptional() // Optional, as image_url can be null
+  @IsOptional()
   @IsString()
   image_url?: string;
 
@@ -104,7 +107,7 @@ export class CreateProductDTO {
   @IsNotEmpty({ message: 'Base unit ID is required.' })
   base_unit_id: number;
 
-  @IsOptional() // Optional, as category_id can be null
+  @IsOptional()
   @IsInt()
   category_id?: number;
 
