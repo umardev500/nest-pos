@@ -60,6 +60,10 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
     .find((v) => v.name === 'Flavor')!
     .values.find((v) => v.value === 'Chicken')!;
 
+  const duck = variantData
+    .find((v) => v.name === 'Flavor')!
+    .values.find((v) => v.value === 'Duck')!;
+
   const small = variantData
     .find((v) => v.name === 'Size')!
     .values.find((v) => v.value === 'Small')!;
@@ -80,6 +84,9 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
       },
       {
         variant_value_id: beef.id, // Referencing the 'Chicken' variant
+      },
+      {
+        variant_value_id: duck.id, // Referencing the 'Chicken' variant
       },
       {
         variant_value_id: small.id, // Referencing the 'Chicken' variant

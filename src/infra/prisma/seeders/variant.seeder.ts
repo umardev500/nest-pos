@@ -8,6 +8,7 @@ export const variantData = [
     values: [
       { id: 1, value: 'Beef' },
       { id: 2, value: 'Chicken' },
+      { id: 5, value: 'Duck' },
     ],
   },
   {

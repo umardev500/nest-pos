@@ -1,4 +1,4 @@
-@product_id = 11
+@product_id = 1
 
 ### Get Products
 # Retrieve a list of products. Optionally, filter by a search term.
