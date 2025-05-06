@@ -43,8 +43,13 @@ export class ProductUnitDTO {
 
 // --- Product Variant Value DTO ---
 export class ProductVariantValueDTO {
+  @IsString()
+  @IsNotEmpty()
+  value: string;
+
   @IsInt()
-  variant_value_id: number;
+  @IsNotEmpty()
+  variant_type_id: number;
 }
 
 // --- Product Variant DTO ---

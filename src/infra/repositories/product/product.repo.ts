@@ -6,7 +6,6 @@ import {
   ProductVariantDTO,
   UpdateProductDTO,
   UpdateProductUnitDTO,
-  UpdateProductVariantDTO,
 } from 'src/app/dto';
 import { PrismaService } from 'src/infra/prisma/prisma.servie';
 
@@ -207,7 +206,7 @@ export class ProductRepo {
    * @returns The mapped product variant data.
    */
   private mapProductVariants(
-    variants: ProductVariantDTO[] | UpdateProductVariantDTO[] = [],
+    variants: ProductVariantDTO[],
   ): Prisma.ProductVariantCreateWithoutProductInput[] {
     return variants.map((variant) => ({
       unit_id: variant.unit_id,
@@ -215,15 +214,24 @@ export class ProductRepo {
       price: variant.price,
       sku: variant.sku,
       barcode: variant.barcode,
-      product_variant_values: variant.product_variant_values?.length
-        ? {
-            create: variant.product_variant_values.map((value) => ({
-              variant_value: {
-                connect: { id: value.variant_value_id },
+      product_variant_values: {
+        create: variant.product_variant_values.map(
+          (
+            value,
+          ): Prisma.ProductVariantValueCreateWithoutProduct_variantInput => ({
+            variant_value: {
+              create: {
+                value: value.value,
+                variant_type: {
+                  connect: {
+                    id: value.variant_type_id,
+                  },
+                },
               },
-            })),
-          }
-        : undefined,
+            },
+          }),
+        ),
+      },
     }));
   }
 }
