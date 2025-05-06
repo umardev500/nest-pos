@@ -16,6 +16,7 @@ export const variantData = [
     values: [
       { id: 3, value: 'Small' },
       { id: 4, value: 'Large' },
+      { id: 6, value: 'Medium' },
     ],
   },
 ];

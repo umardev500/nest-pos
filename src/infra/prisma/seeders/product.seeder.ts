@@ -90,7 +90,7 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
         variant_value_id: duck.id, // Referencing the 'Chicken' variant
       },
       {
-        variant_value_id: small.id, // Referencing the 'Chicken' variant
+        variant_value_id: small.id, // Referencing the small size
       },
     ],
   };
@@ -109,7 +109,7 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
         variant_value_id: beef.id, // Referencing the 'Chicken' variant
       },
       {
-        variant_value_id: large.id, // Referencing the 'Chicken' variant
+        variant_value_id: large.id, // Referencing the large variant
       },
     ],
   };
@@ -126,7 +126,7 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
         variant_value_id: chicken.id, // Referencing the 'Beef' variant
       },
       {
-        variant_value_id: small.id, // Referencing the 'Chicken' variant
+        variant_value_id: small.id, // Referencing the small variant
       },
     ],
   };
