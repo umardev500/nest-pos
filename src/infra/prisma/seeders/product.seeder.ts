@@ -72,9 +72,10 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
     .find((v) => v.name === 'Size')!
     .values.find((v) => v.value === 'Large')!;
 
+  // Size Small nothing available with this data
   const productVariantDTO: ProductVariantDTO = {
     unit_id: pieceUnit.id,
-    stock: 50,
+    stock: 0,
     price: 3300.5,
     sku: 'CBG-PCS-BEEF',
     barcode: '12345678',
@@ -113,6 +114,23 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
     ],
   };
 
+  // Size Small will available withc just chicken
+  const productVariantDTO3: ProductVariantDTO = {
+    unit_id: pieceUnit.id,
+    stock: 50,
+    price: 5000.5,
+    sku: 'CBG-PCX-CHICK',
+    barcode: '12345678',
+    product_variant_values: [
+      {
+        variant_value_id: chicken.id, // Referencing the 'Beef' variant
+      },
+      {
+        variant_value_id: small.id, // Referencing the 'Chicken' variant
+      },
+    ],
+  };
+
   return {
     name: 'Cheese Burger',
     base_unit_id: pieceUnit.id,
@@ -134,7 +152,11 @@ function buildCheeseBurgerDTO(): CreateProductDTO {
         sku: 'CBG-BOX-001',
       },
     ],
-    product_variants: [productVariantDTO, productVariantDTO2],
+    product_variants: [
+      productVariantDTO,
+      productVariantDTO2,
+      productVariantDTO3,
+    ],
   };
 }
 
