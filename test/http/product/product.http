@@ -39,14 +39,14 @@ Content-Type: application/json
       "stock": 100,
       "price": 8500.0,
       "conversion_factor": 1,
-      "sku": "CBG1-PCS-0012"
+      "sku": "CBG1-PCS-00121"
     },
     {
       "unit_id": 2,
       "stock": 20,
       "price": 4005.0,
       "conversion_factor": 10,
-      "sku": "CBG1-BOX-0012"
+      "sku": "CBG1-BOX-00121"
     }
   ],
   "product_variants": [
@@ -54,13 +54,24 @@ Content-Type: application/json
       "unit_id": 1,
       "stock": 50,
       "price": 3300.5,
-      "sku": "CBG1-PCB-BEEFX",
+      "sku": "CBG1-PCB-BEEFX1",
       "barcode": "12345678",
       "product_variant_values": [
         { "value": "Blue", "variant_type_id": 1 },
         { "value": "Green", "variant_type_id": 1 },
         { "value": "Red", "variant_type_id": 1 },
-        { "value": "Color", "variant_type_id": 2 }
+        { "value": "Large", "variant_type_id": 2 }
+      ]
+    },
+    {
+      "unit_id": 1,
+      "stock": 50,
+      "price": 8300.5,
+      "sku": "CBG1-PCB-BEEFX2",
+      "barcode": "12345678",
+      "product_variant_values": [
+        { "value": "Tomato", "variant_type_id": 1 },
+        { "value": "Large", "variant_type_id": 2 }
       ]
     }
   ]

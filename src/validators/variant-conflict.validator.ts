@@ -1,3 +1,11 @@
+// src/common/validators/variant-conflict.validator.ts
+
+import { Injectable } from '@nestjs/common';
+import {
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
 import { ProductVariantDTO, ProductVariantValueDTO } from 'src/app/dto';
 
 // Helper function to check if a variant set is a subset of another
@@ -50,32 +58,21 @@ function findVariantConflicts(
   return [...new Set(conflicts)];
 }
 
-const variants: ProductVariantDTO[] = [
-  {
-    unit_id: 1,
-    stock: 50,
-    price: 3300.5,
-    sku: 'CBG1-PCB-BEEFX1',
-    barcode: '12345678',
-    product_variant_values: [
-      { value: 'Blue', variant_type_id: 1 },
-      { value: 'Green', variant_type_id: 1 },
-      { value: 'Red', variant_type_id: 1 },
-      { value: 'Large', variant_type_id: 2 },
-    ],
-  },
-  {
-    unit_id: 1,
-    stock: 50,
-    price: 3300.5,
-    sku: 'CBG1-PCB-BEEFX2',
-    barcode: '12345678',
-    product_variant_values: [
-      { value: 'Green', variant_type_id: 1 },
-      { value: 'Medium', variant_type_id: 2 },
-    ],
-  },
-];
+@ValidatorConstraint({ async: false })
+@Injectable()
+export class VariantConflictValidator implements ValidatorConstraintInterface {
+  validate(variants: ProductVariantDTO[], args: ValidationArguments): boolean {
+    const conflicts = findVariantConflicts(variants);
+    console.log(conflicts);
 
-const conflicts = findVariantConflicts(variants);
-console.log(conflicts); // This will print the conflicting variants
+    if (conflicts.length > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  defaultMessage(args: ValidationArguments): string {
+    return 'Product variants have conflicts in variant values (e.g., identical variant values for the same variant type).';
+  }
+}

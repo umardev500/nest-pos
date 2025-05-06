@@ -11,6 +11,7 @@ import {
   Matches,
   ValidateNested,
 } from 'class-validator';
+import { IsVariantConflict } from 'src/common/decorators';
 
 // --- Product Unit DTO ---
 export class ProductUnitDTO {
@@ -130,6 +131,9 @@ export class CreateProductDTO {
   @Type(() => ProductUnitDTO)
   product_units: ProductUnitDTO[];
 
+  @IsVariantConflict({
+    message: 'The product variants contain conflicts between variant values.',
+  })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ProductVariantDTO)
