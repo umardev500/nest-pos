@@ -63,6 +63,20 @@ export class OrderRepo {
   }
 
   /**
+   * Retrieves order types based on optional filtering criteria.
+   * @param where - Optional filter for order types (e.g., by merchant_id or enabled).
+   * @returns A list of matching order types.
+   */
+  getOrderTypes(where?: Prisma.OrderTypeWhereInput) {
+    return this.prisma.orderType.findMany({
+      where,
+      orderBy: {
+        name: 'asc', // Optional sorting
+      },
+    });
+  }
+
+  /**
    * Updates an existing order, ensuring it matches the provided `where` filter.
    * @param where - The filter criteria for updating the order (e.g., `id`).
    * @param dto - The updated order data.

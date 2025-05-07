@@ -3,6 +3,10 @@
 
 GET {{API_URL}}/orders
 
+### Get types
+
+GET {{API_URL}}/orders/types
+
 
 ### Get Order by ID
 # Fetch a single order by its ID.

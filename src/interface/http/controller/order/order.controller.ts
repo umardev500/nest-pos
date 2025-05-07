@@ -37,6 +37,15 @@ export class OrderController {
   }
 
   /**
+   * Retrieves all order types for the current merchant.
+   * @returns List of order types.
+   */
+  @Get('types')
+  getOrderTypes() {
+    return this.orderService.getOrderTypes(); // Calls the service method
+  }
+
+  /**
    * Retrieves a specific order by its ID.
    * @param id - ID of the order to fetch.
    * @returns The order with the specified ID.

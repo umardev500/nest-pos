@@ -83,6 +83,7 @@ Content-Type: application/json
       "product_variant_values": [
         { "value": "Dark", "variant_type_id": 1 },
         { "value": "Green", "variant_type_id": 1 },
+        { "value": "Maroon", "variant_type_id": 1 },
         { "value": "Medium", "variant_type_id": 2 }
       ]
     }

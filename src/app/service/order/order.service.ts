@@ -156,6 +156,18 @@ export class OrderService {
   }
 
   /**
+   * Fetches order types available to the current merchant.
+   * @returns List of order types.
+   */
+  getOrderTypes() {
+    const merchant_id = this.getMerchantId(); // Get merchant ID from CLS context
+    return this.orderRepo.getOrderTypes({
+      merchant_id, // Filter order types by current merchant
+      enabled: true, // Optional: only return enabled order types
+    });
+  }
+
+  /**
    * Updates an order's details for the current merchant.
    * @param id - ID of the order to update.
    * @param dto - Updated order data.
