@@ -9,6 +9,7 @@ import { DiscountScope, DiscountType } from 'prisma/generated/prisma';
 import { IsNotUserInput } from 'src/validators';
 
 export class CreateDiscountDTO {
+  @IsOptional()
   @IsNotUserInput({
     message: 'Merchant ID should not be provided by the user.',
   })

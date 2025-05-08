@@ -1,0 +1,46 @@
+### Get All Discounts
+# Retrieve all discounts for the current merchant.
+
+GET {{API_URL}}/discounts
+
+
+
+### Get Discount by ID
+# Fetch a single discount by its ID.
+
+GET {{API_URL}}/discounts/3
+
+
+
+### Create Discount
+# Create a new discount for a merchant.
+
+POST {{API_URL}}/discounts
+Content-Type: application/json
+
+{
+  "scope": "PRODUCT",
+  "type": "PERCENT",
+  "value": 15,
+  "start_date": "2025-05-01T00:00:00.000Z",
+  "end_date": "2025-06-01T00:00:00.000Z"
+}
+
+
+
+### Update Discount
+# Update an existing discount by ID.
+
+PATCH {{API_URL}}/discounts/3
+Content-Type: application/json
+
+{
+  "value": 20
+}
+
+
+
+### Delete Discount
+# Delete a discount by ID.
+
+DELETE {{API_URL}}/discounts/3
