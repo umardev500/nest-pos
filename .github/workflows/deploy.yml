@@ -18,11 +18,19 @@ jobs:
       with:
         node-version: '22'  # Adjusted to Node.js version 22
 
+    - name: Cache Yarn dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/yarn
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
     - name: Install dependencies
-      run: npm install
+      run: yarn install
 
     - name: Build the application
-      run: npm run build
+      run: yarn build
 
     - name: Archive production build
       run: tar -czf dist.tar.gz dist/
@@ -59,8 +67,8 @@ jobs:
           tar -xzf /tmp/dist.tar.gz -C ~/app/nest-pos
           rm /tmp/dist.tar.gz  # Clean up the tar file
 
-          # Install production dependencies
-          npm install --production
+          # Install production dependencies using Yarn
+          yarn install --production
           
           # Stop the existing app (if running with PM2)
           pm2 stop my-nest-app || true
