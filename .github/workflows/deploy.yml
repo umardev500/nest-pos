@@ -44,17 +44,33 @@ jobs:
           yarn build
           pm2 restart my-nest-app
 
-          # ✅ Generate Git commit history JSON
+          # ✅ Generate Git commit history JSON with clock
           node -e "
             const fs = require('fs');
             const { execSync } = require('child_process');
-            const log = execSync('git log --pretty=format:\\'%h|%an|%ad|%s\\' --date=short').toString();
+            
+            // Run git log to get the commit history with ISO date format
+            const log = execSync('git log --pretty=format:\\'%h|%an|%ad|%s\\' --date=iso').toString();  // --date=iso for detailed timestamps
+
+            // Parse each line of the log and extract the commit details
             const commits = log.split('\\n').map(l => {
               const [hash, author, date, message] = l.split('|');
-              return { hash, author, date, message };
+              
+              // Add a clock field using the actual commit date and format it to a readable time
+              const clock = new Date(date).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+              });
+
+              return { hash, author, date, message, clock };
             });
+
+            // Write the commit data to a JSON file
             fs.writeFileSync('commits.json', JSON.stringify(commits, null, 2));
           "
+
 
           # ✅ Copy to web-accessible directory
           cp commits.json /var/www/html/apks/commits.json
