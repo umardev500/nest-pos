@@ -22,35 +22,21 @@ jobs:
 
     - name: SSH to VPS and deploy
       run: |
-        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
-          # Source the user's shell profile to load the correct environment
-          source ~/.bashrc  # Or ~/.bash_profile depending on your shell setup
+        ssh -t ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
+          bash -l -c '
+            yarn -v
+            pm2 -v
 
-          # Print yarn and pm2 versions to verify they're available
-          yarn -v
-          pm2 -v
+            cd ~/app/nest-pos
 
-          # Navigate to the app directory
-          cd ~/app/nest-pos  # Update this path to where your app is located on the VPS
-          
-          # Pull the latest code if you need it (optional, if not using scp)
-          git pull origin main
-          
-          # Install production dependencies using Yarn
-          yarn install --production
+            git pull origin main
+            yarn install --production
 
-          # Remove the .env file (if you have it in the repo) and replace with example
-          rm .env
-          cp .env.example .env
+            rm .env || true
+            cp .env.example .env
 
-          # Run database migrations (if needed)
-          make migrate
-
-          # Build the application on VPS
-          yarn build
-
-          # Restart the app with PM2
-          pm2 restart my-nest-app  # Restart the app with your PM2 app name
-
-          exit
+            make migrate
+            yarn build
+            pm2 restart my-nest-app
+          '
         EOF
