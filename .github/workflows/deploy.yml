@@ -24,8 +24,10 @@ jobs:
     - name: Run migrations
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Database URL from secrets
-      run: make migrate
-      
+      run: |
+        make clear-all
+        make migrate
+
     - name: Build the application
       run: yarn build  # Use yarn build to build the app
 
