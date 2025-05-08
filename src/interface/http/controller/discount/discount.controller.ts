@@ -7,8 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
-import { CreateDiscountDTO, UpdateDiscountDTO } from 'src/app/dto';
+import {
+  CreateDiscountDTO,
+  FindDiscountFilterDTO,
+  UpdateDiscountDTO,
+} from 'src/app/dto';
 import { DiscountService } from 'src/app/service';
 
 /**
@@ -36,8 +41,8 @@ export class DiscountController {
    * @returns A list of discount records.
    */
   @Get()
-  findAll() {
-    return this.discountService.findAll();
+  findAll(@Query() filter: FindDiscountFilterDTO) {
+    return this.discountService.findAll(filter);
   }
 
   /**

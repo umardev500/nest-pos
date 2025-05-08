@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ClsService } from 'nestjs-cls';
-import { CreateDiscountDTO, UpdateDiscountDTO } from 'src/app/dto';
+import {
+  CreateDiscountDTO,
+  FindDiscountFilterDTO,
+  UpdateDiscountDTO,
+} from 'src/app/dto';
 import { CLS_USER_KEY } from 'src/constants/cls.constants';
 import { DiscountRepo } from 'src/infra/repositories/discount/discount.repo';
 
@@ -47,9 +51,12 @@ export class DiscountService {
    *
    * @returns An array of discounts scoped to the current merchant.
    */
-  findAll() {
+  findAll(filter?: FindDiscountFilterDTO) {
     const merchant_id = this.getMerchantId();
-    return this.discountRepo.findAll({ merchant_id });
+    return this.discountRepo.findAll({
+      merchant_id,
+      ...(filter?.scope && { scope: filter.scope }),
+    });
   }
 
   /**
