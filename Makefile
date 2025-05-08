@@ -1,8 +1,4 @@
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_NAME=pos
-DB_USER=root
-DB_PASSWORD=root
+include .env
 
 drop-db:
 	@mysql -h $(DB_HOST) -P $(DB_PORT) -u $(DB_USER) -p$(DB_PASSWORD) -e "DROP DATABASE IF EXISTS $(DB_NAME);"

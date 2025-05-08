@@ -1,42 +1,13 @@
-name: Build, Migrate, and Deploy NestJS App
+name: Deploy NestJS App to VPS
 
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch (adjust as necessary)
+      - main  # Trigger deployment on push to the main branch
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '22'  # Adjusted to Node.js version 22
-
-    - name: Install dependencies
-      run: yarn install
-
-    - name: Run migrations
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Database URL from secrets
-      run: |
-        make clear-all
-        make migrate
-
-    - name: Build the application
-      run: yarn build  # Use yarn build to build the app
-
-    - name: Archive production build
-      run: tar -czf dist.tar.gz dist/
-
   deploy:
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
     - name: Checkout Repository
@@ -45,32 +16,35 @@ jobs:
     - name: Set up SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
+        echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa  # Add your VPS SSH key to authenticate
+        chmod 600 ~/.ssh/id_rsa  # Ensure proper permissions
+        ssh-keyscan ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts  # Avoid SSH prompt for unverified host
 
     - name: Copy files to VPS
       run: |
-        scp -r dist.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:/tmp/
+        # Copy the entire code base (excluding .git and other files listed in .gitignore) to the VPS
+        scp -r * ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:/tmp/nest-pos/
 
     - name: SSH to VPS and deploy
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
           # Navigate to the app directory
-          cd ~/app/nest-pos
+          cd ~/app/nest-pos  # Update this path to where your app is located on the VPS
           
-          # Optionally pull the latest code if you're using Git for version control
+          # Pull the latest code if you need it (optional, if not using scp)
           git pull origin main
           
-          # Extract the build tar file
-          tar -xzf /tmp/dist.tar.gz -C ~/app/nest-pos
-          rm /tmp/dist.tar.gz  # Clean up the tar file
-
           # Install production dependencies using Yarn
           yarn install --production
-          
+
+          # Run database migrations (if needed)
+          make migrate
+
+          # Build the application on VPS
+          yarn build
+
           # Restart the app with PM2
           pm2 restart my-nest-app  # Restart the app with your PM2 app name
-          
+
           exit
         EOF
