@@ -1,4 +1,10 @@
-import { IsDateString, IsEnum, IsNumber, IsOptional } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { DiscountScope, DiscountType } from 'prisma/generated/prisma';
 
 export class UpdateDiscountDTO {
@@ -13,6 +19,10 @@ export class UpdateDiscountDTO {
   @IsOptional()
   @IsNumber()
   value?: number;
+
+  @IsOptional()
+  @IsString()
+  label?: string;
 
   @IsOptional()
   @IsDateString()

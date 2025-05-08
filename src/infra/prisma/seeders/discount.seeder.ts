@@ -22,6 +22,7 @@ export default async function seedDiscounts() {
       scope: 'PRODUCT',
       type: DiscountType.PERCENT,
       value: 10,
+      label: 'Discount 10%',
       start_date: now,
       end_date: nextMonth,
     },
@@ -34,6 +35,7 @@ export default async function seedDiscounts() {
       scope: 'PRODUCT',
       type: DiscountType.FIXED,
       value: 5000,
+      label: 'Discount 5000K',
       start_date: now,
       end_date: new Date(now.getTime() + 15 * 24 * 60 * 60 * 1000), // 15 days
     },

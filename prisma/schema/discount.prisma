@@ -14,6 +14,7 @@ model Discount {
     scope       DiscountScope // Determines if it’s for product or order
     type        DiscountType
     value       Float
+    label       String?
     start_date  DateTime?
     end_date    DateTime?
     created_at  DateTime      @default(now())

@@ -4,6 +4,7 @@ import {
   IsInt,
   IsNumber,
   IsOptional,
+  IsString,
 } from 'class-validator';
 import { DiscountScope, DiscountType } from 'prisma/generated/prisma';
 import { IsNotUserInput } from 'src/validators';
@@ -24,6 +25,10 @@ export class CreateDiscountDTO {
 
   @IsNumber()
   value: number;
+
+  @IsOptional()
+  @IsString()
+  label?: string;
 
   @IsOptional()
   @IsDateString()
