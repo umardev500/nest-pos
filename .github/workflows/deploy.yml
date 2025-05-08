@@ -44,3 +44,18 @@ jobs:
           yarn build
           pm2 restart my-nest-app
 
+          # ✅ Generate Git commit history JSON
+          node -e "
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+            const log = execSync('git log --pretty=format:\\'%h|%an|%ad|%s\\' --date=short').toString();
+            const commits = log.split('\\n').map(l => {
+              const [hash, author, date, message] = l.split('|');
+              return { hash, author, date, message };
+            });
+            fs.writeFileSync('commits.json', JSON.stringify(commits, null, 2));
+          "
+
+          # ✅ Copy to web-accessible directory
+          cp commits.json /var/www/html/apks/commits.json
+
