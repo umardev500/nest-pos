@@ -37,6 +37,12 @@ jobs:
           # Install production dependencies using Yarn
           yarn install --production
 
+          # Remove the .env file
+          rm .env
+
+          # Copy example .env
+          cp .env.example .env
+
           # Run database migrations (if needed)
           make migrate
 
