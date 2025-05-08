@@ -1,4 +1,4 @@
-name: Build and Deploy NestJS App
+name: Build, Migrate, and Deploy NestJS App
 
 on:
   push:
@@ -21,8 +21,13 @@ jobs:
     - name: Install dependencies
       run: yarn install
 
+    - name: Run migrations
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Database URL from secrets
+      run: make migrate
+      
     - name: Build the application
-      run: yarn build
+      run: yarn build  # Use yarn build to build the app
 
     - name: Archive production build
       run: tar -czf dist.tar.gz dist/
@@ -62,12 +67,8 @@ jobs:
           # Install production dependencies using Yarn
           yarn install --production
           
-          # Stop the existing app (if running with PM2)
-          pm2 stop my-nest-app || true
-          
-          # Start the app with PM2 (adjust the entry file if necessary)
-          pm2 start dist/main.js --name "my-nest-app"
-          pm2 save
+          # Restart the app with PM2
+          pm2 restart my-nest-app  # Restart the app with your PM2 app name
           
           exit
         EOF
