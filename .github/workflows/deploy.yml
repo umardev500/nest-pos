@@ -20,23 +20,27 @@ jobs:
         chmod 600 ~/.ssh/id_rsa  # Ensure proper permissions
         ssh-keyscan ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts  # Avoid SSH prompt for unverified host
 
-    - name: SSH to VPS and deploy
-      run: |
-        ssh -t ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
-          bash -l -c '
-            yarn -v
-            pm2 -v
+    - name: Deploy to VPS via SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_IP }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        script: |
+          export PATH=$PATH:/usr/local/bin:/root/.nvm/versions/node/v22.14.0/bin
 
-            cd ~/app/nest-pos
+          yarn -v
+          pm2 -v
 
-            git pull origin main
-            yarn install --production
+          cd ~/app/nest-pos
+          git pull origin main
 
-            rm .env || true
-            cp .env.example .env
+          yarn install --production
 
-            make migrate
-            yarn build
-            pm2 restart my-nest-app
-          '
-        EOF
+          rm -f .env
+          cp .env.example .env
+
+          make migrate
+          yarn build
+          pm2 restart my-nest-app
+
