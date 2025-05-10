@@ -100,7 +100,7 @@ export class OrderService {
       totalAmount -= dto.discount_value || 0;
     }
 
-    return totalAmount;
+    return totalAmount - (dto.down_payment ?? 0);
   }
 
   /**

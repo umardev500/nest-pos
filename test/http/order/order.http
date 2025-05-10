@@ -21,23 +21,23 @@ POST {{API_URL}}/orders
 Content-Type: application/json
 
 {
-  "order_type_id": 2,
-  "discount_id": 1,
-  "down_payment": 10,
+  "discount_id": 3,
+  "down_payment": 1000,
   "order_items": [
     {
-      "product_id": 1,
-      "quantity": 2,
-      "price": 20,
-      "discount_id": 1
+      "discount_id": 1,
+      "price": 20300.5,
+      "product_id": 2,
+      "quantity": 1
     },
     {
-      "product_id": 2,
-      "quantity": 2,
-      "price": 2000,
-      "discount_id": 1
+      "discount_id": 1,
+      "price": 5000,
+      "product_id": 4,
+      "quantity": 1
     }
-  ]
+  ],
+  "order_type_id": 1
 }
 
 ### Update Order
