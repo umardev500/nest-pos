@@ -22,4 +22,6 @@ model Merchant {
     OrderType OrderType[]
 
     Customer Customer[]
+
+    CustomerLevel CustomerLevel[]
 }

@@ -1,0 +1,13 @@
+model CustomerLevel {
+    id            Int           @id @default(autoincrement())
+    merchant_id   Int
+    name          String
+    description   String?
+    discount_type DiscountType?
+    discount      Float?
+    created_at    DateTime      @default(now())
+    updated_at    DateTime      @updatedAt
+
+    // Relationships
+    merchant Merchant @relation(fields: [merchant_id], references: [id])
+}
