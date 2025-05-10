@@ -40,7 +40,9 @@ jobs:
           rm -f .env
           cp .env.example .env
 
+          make clean
           make migrate
+          make seed
           yarn build
           pm2 restart my-nest-app
 
