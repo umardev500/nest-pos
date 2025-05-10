@@ -40,7 +40,7 @@ jobs:
           rm -f .env
           cp .env.example .env
 
-          make clean
+          make clear-all
           make migrate
           make seed
           yarn build
