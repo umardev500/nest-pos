@@ -10,4 +10,6 @@ model CustomerLevel {
 
     // Relationships
     merchant Merchant @relation(fields: [merchant_id], references: [id])
+
+    Customer Customer[]
 }

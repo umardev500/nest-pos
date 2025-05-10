@@ -9,6 +9,11 @@ import {
 
 export class UpdateCustomerDto {
   @IsOptional()
+  @IsInt()
+  @Type(() => Number)
+  level_id?: number;
+
+  @IsOptional()
   @IsString()
   name?: string;
 

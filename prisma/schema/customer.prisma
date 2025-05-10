@@ -1,6 +1,7 @@
 model Customer {
     id          Int      @id @default(autoincrement())
     merchant_id Int
+    level_id    Int
     name        String
     email       String   @unique
     phone       String?
@@ -11,5 +12,6 @@ model Customer {
 
     // Relationship
 
-    merchant Merchant @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
+    merchant Merchant      @relation(fields: [merchant_id], references: [id], onDelete: Cascade)
+    level    CustomerLevel @relation(fields: [level_id], references: [id])
 }

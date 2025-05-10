@@ -18,6 +18,11 @@ export class CreateCustomerDto {
   @Type(() => Number)
   merchant_id: number;
 
+  @IsInt()
+  @IsNotEmpty()
+  @Type(() => Number)
+  level_id: number;
+
   @IsString()
   @IsNotEmpty()
   name: string;

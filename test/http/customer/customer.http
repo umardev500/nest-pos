@@ -16,6 +16,7 @@ POST {{API_URL}}/customers
 Content-Type: application/json
 
 {
+  "level_id": 1,
   "name": "Margareth",
   "email": "margareth@example.com",
   "phone": "+628314234243",
