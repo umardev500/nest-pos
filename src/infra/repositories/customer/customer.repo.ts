@@ -30,6 +30,9 @@ export class CustomerRepo {
   findAll(where?: Prisma.CustomerWhereInput) {
     return this.prisma.customer.findMany({
       where,
+      include: {
+        level: true,
+      },
     });
   }
 

@@ -1,4 +1,4 @@
-@id = 7
+@id = 21
 
 ### Get All Customers
 # Retrieve all customers for the current merchant.
@@ -20,30 +20,6 @@ Content-Type: application/json
   "name": "Margareth",
   "email": "margareth@example.com",
   "phone": "+628314234243",
-  "address": "123 Main St"
-}
-
-### Create Customer
-# Create a new customer for a merchant.
-POST {{API_URL}}/customers
-Content-Type: application/json
-
-{
-  "name": "James",
-  "email": "james@example.com",
-  "phone": "+628314275243",
-  "address": "123 Main St"
-}
-
-### Create Customer
-# Create a new customer for a merchant.
-POST {{API_URL}}/customers
-Content-Type: application/json
-
-{
-  "name": "Ronaldo",
-  "email": "Ronaldo@example.com",
-  "phone": "+628314275576",
   "address": "123 Main St"
 }
 
