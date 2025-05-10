@@ -8,7 +8,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { Prisma } from 'prisma/generated/prisma';
+import { CreateCustomerLevelDTO, UpdateCustomerLevelDTO } from 'src/app/dto';
 import { CustomerLevelService } from 'src/app/service';
 
 /**
@@ -23,7 +23,7 @@ export class CustomerLevelController {
    * Creates a new customer level.
    */
   @Post()
-  create(@Body() body: Prisma.CustomerLevelCreateInput) {
+  create(@Body() body: CreateCustomerLevelDTO) {
     return this.service.create(body);
   }
 
@@ -52,7 +52,7 @@ export class CustomerLevelController {
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() body: Prisma.CustomerLevelUpdateInput,
+    @Body() body: UpdateCustomerLevelDTO,
   ) {
     return this.service.update(id, body);
   }

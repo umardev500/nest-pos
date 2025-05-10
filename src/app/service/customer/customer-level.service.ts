@@ -1,6 +1,6 @@
 import { Injectable, UseInterceptors } from '@nestjs/common';
 import { ClsService } from 'nestjs-cls';
-import { Prisma } from 'prisma/generated/prisma';
+import { CreateCustomerLevelDTO, UpdateCustomerLevelDTO } from 'src/app/dto';
 import { CLS_USER_KEY } from 'src/constants/cls.constants';
 import { CustomerLevelRepo } from 'src/infra/repositories';
 import { UserContextInterceptor } from 'src/interceptor';
@@ -30,7 +30,7 @@ export class CustomerLevelService {
    * @param data - Input data to create the level.
    * @returns The created CustomerLevel.
    */
-  create(data: Prisma.CustomerLevelCreateInput) {
+  create(data: CreateCustomerLevelDTO) {
     const merchant_id = this.getMerchantId();
     return this.customerLevelRepo.create({
       ...data,
@@ -63,7 +63,7 @@ export class CustomerLevelService {
    * @param data - Update data.
    * @returns The updated CustomerLevel.
    */
-  update(id: number, data: Prisma.CustomerLevelUpdateInput) {
+  update(id: number, data: UpdateCustomerLevelDTO) {
     const merchant_id = this.getMerchantId();
     return this.customerLevelRepo.update({ id, merchant_id }, data);
   }
