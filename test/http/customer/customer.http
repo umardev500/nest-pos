@@ -16,9 +16,33 @@ POST {{API_URL}}/customers
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "phone": "+6283142765573",
+  "name": "Margareth",
+  "email": "margareth@example.com",
+  "phone": "+628314234243",
+  "address": "123 Main St"
+}
+
+### Create Customer
+# Create a new customer for a merchant.
+POST {{API_URL}}/customers
+Content-Type: application/json
+
+{
+  "name": "James",
+  "email": "james@example.com",
+  "phone": "+628314275243",
+  "address": "123 Main St"
+}
+
+### Create Customer
+# Create a new customer for a merchant.
+POST {{API_URL}}/customers
+Content-Type: application/json
+
+{
+  "name": "Ronaldo",
+  "email": "Ronaldo@example.com",
+  "phone": "+628314275576",
   "address": "123 Main St"
 }
 
