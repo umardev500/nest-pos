@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClsModule } from 'nestjs-cls';
 import {
   CategoryModule,
+  CustomerLevelModule,
   CustomerModule,
   DiscountModule,
   OrderModule,
@@ -21,6 +22,7 @@ import {
     OrderModule,
     DiscountModule,
     CustomerModule,
+    CustomerLevelModule,
   ],
   providers: [],
 })

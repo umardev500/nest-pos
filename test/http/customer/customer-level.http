@@ -1,0 +1,39 @@
+@id = 5
+
+### Get All Customer Levels
+# Retrieve all customer levels for the current merchant.
+GET {{API_URL}}/customer-levels
+
+
+### Get Customer Level by ID
+# Fetch a single customer level by its ID.
+GET {{API_URL}}/customer-levels/{{id}}
+
+
+### Create Customer Level
+# Create a new customer level for the current merchant.
+POST {{API_URL}}/customer-levels
+Content-Type: application/json
+
+{
+  "name": "Gold 2",
+  "description": "Gold members get 10% off",
+  "discount_type": "PERCENT",
+  "discount": 10
+}
+
+
+### Update Customer Level
+# Update an existing customer level by ID.
+PATCH {{API_URL}}/customer-levels/{{id}}
+Content-Type: application/json
+
+{
+  "description": "Updated to 15% off",
+  "discount": 15
+}
+
+
+### Delete Customer Level
+# Delete a customer level by ID.
+DELETE {{API_URL}}/customer-levels/{{id}}
