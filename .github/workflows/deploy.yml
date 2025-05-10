@@ -27,7 +27,7 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.VPS_SSH_KEY }}
         script: |
-          export PATH=$PATH:/usr/local/bin:/root/.nvm/versions/node/v22.14.0/bin:/root/.bun/bin/bun
+          export PATH=$PATH:/usr/local/bin:/root/.nvm/versions/node/v22.14.0/bin:/root/.bun/bin
 
           yarn -v
           pm2 -v
