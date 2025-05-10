@@ -20,4 +20,6 @@ model Merchant {
     Order Order[]
 
     OrderType OrderType[]
+
+    Customer Customer[]
 }

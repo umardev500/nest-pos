@@ -1,0 +1,39 @@
+@id = 7
+
+### Get All Customers
+# Retrieve all customers for the current merchant.
+GET {{API_URL}}/customers
+
+
+### Get Customer by ID
+# Fetch a single customer by its ID.
+GET {{API_URL}}/customers/{{id}}
+
+
+### Create Customer
+# Create a new customer for a merchant.
+POST {{API_URL}}/customers
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "phone": "+6283142765573",
+  "address": "123 Main St"
+}
+
+
+### Update Customer
+# Update an existing customer by ID.
+PATCH {{API_URL}}/customers/{{id}}
+Content-Type: application/json
+
+{
+  "phone": "+6283142765574",
+  "address": "456 Elm St"
+}
+
+
+### Delete Customer
+# Delete a customer by ID.
+DELETE {{API_URL}}/customers/{{id}}
