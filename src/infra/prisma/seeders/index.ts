@@ -1,6 +1,7 @@
 import console from 'console';
 import seedCategory from 'src/infra/prisma/seeders/category.seeder';
 import seedCustomerLevels from 'src/infra/prisma/seeders/customer-level.seeder';
+import seedCustomers from 'src/infra/prisma/seeders/customer.seeder';
 import seedDiscounts from 'src/infra/prisma/seeders/discount.seeder';
 import seedMerchant from 'src/infra/prisma/seeders/merchant.seeder';
 import seedOrderTypes from 'src/infra/prisma/seeders/order-type.seed';
@@ -12,6 +13,7 @@ async function main() {
   console.log('🍃 Seeding started');
   await seedMerchant();
   await seedCustomerLevels();
+  await seedCustomers();
   await seedOrderTypes();
   await seedDiscounts();
   await seedCategory();
